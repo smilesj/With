@@ -39,6 +39,8 @@
         </activity>
         <activity android:name=".ProjectAddActivity" >
         </activity>
+        <activity android:name=".TodoAddActivity" >
+        </activity>
     </application>
 
 </manifest>

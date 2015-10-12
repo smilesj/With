@@ -52,8 +52,6 @@ public class ListProjectAdapter extends BaseAdapter {
         if(convertView == null){
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.projectlist_item, parent, false);
-
-
         }
         projectName = (TextView)convertView.findViewById(R.id.projectName);
         pData = getItem(position);

@@ -1,9 +1,6 @@
 package com.example.seonjae.with;
 
-import android.content.Intent;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -21,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.seonjae.with.dummy.MP_Project_Fragment;
+import com.example.seonjae.with.dummy.MP_TODO_Fragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -117,6 +115,9 @@ public class MainActivity extends AppCompatActivity {
 //                return fragment.setArguments(bundle);
                 return new MP_Project_Fragment();
             }
+            else if(position == 1){
+                return new MP_TODO_Fragment();
+            }
             else
                 return PlaceholderFragment.newInstance(position + 1);
         }
@@ -133,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     return "Project List";
                 case 1:
-                    return "SECTION 2";
+                    return "TODO List";
                 case 2:
                     return "SECTION 3";
             }

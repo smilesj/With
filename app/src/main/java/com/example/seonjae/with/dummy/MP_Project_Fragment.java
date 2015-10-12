@@ -26,15 +26,12 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -66,11 +63,9 @@ public class MP_Project_Fragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ProjectAddActivity.class);
                 startActivity(intent);
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
-
 
         return view;
     }
@@ -113,12 +108,10 @@ public class MP_Project_Fragment extends Fragment {
             protected void onPostExecute(String result) {
                 String s = result.trim();
                 final String json = s.replaceAll("\"", "\\\"");
-                Log.d("------------SJ3: ", s);
                 try{
                     JSONArray jsonArray = new JSONArray(json);
                     for(int i = 0; i < jsonArray.length(); i++){
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        Log.d("------------SJ4-2: ", jsonObject.getString("projectName"));
                         ProjectData p = new ProjectData(jsonObject.getString("projectName"));
                         pListAdapter.addProject(p);
                         pListAdapter.notifyDataSetChanged();
@@ -127,12 +120,6 @@ public class MP_Project_Fragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-//                if (s.equalsIgnoreCase("success")) {
-//
-//                    Toast.makeText(getContext(), "성공!", Toast.LENGTH_LONG).show();
-//                } else {
-//                    Toast.makeText(getContext(), "실패!", Toast.LENGTH_LONG).show();
-//                }
             }
         }
         GetProjectListAsync la = new GetProjectListAsync();
