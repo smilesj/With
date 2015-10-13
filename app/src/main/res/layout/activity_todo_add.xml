@@ -47,11 +47,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="end date"/>
-        <DatePicker
+        <Button
+            android:id="@+id/selectEnddate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:calendarViewShown="false"
-            android:spinnersShown="true"/>
+            android:text="select End Date" />
+        <TextView
+            android:id="@+id/endDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
 
 
         <Button
