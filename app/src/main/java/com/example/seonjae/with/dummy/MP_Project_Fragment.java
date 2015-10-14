@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.os.Bundle;
 import android.widget.ListView;
 
+import com.example.seonjae.with.DataConn;
 import com.example.seonjae.with.ProjectAddActivity;
 import com.example.seonjae.with.R;
 import com.example.seonjae.with.data.ProjectData;
@@ -44,8 +45,13 @@ public class MP_Project_Fragment extends Fragment {
     private ListProjectAdapter pListAdapter = null;
     private ArrayList<ProjectData> pDataList;
     private ProjectData pData;
+    private ArrayList<String> projectNameList;
+    private DataConn dataConn;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        dataConn = new DataConn();
+        projectNameList = new ArrayList<String>();
 
         pDataList = new ArrayList<ProjectData>();
         view = inflater.inflate(R.layout.mp_project_fragment, container, false);
@@ -113,6 +119,7 @@ public class MP_Project_Fragment extends Fragment {
                     for(int i = 0; i < jsonArray.length(); i++){
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         ProjectData p = new ProjectData(jsonObject.getString("projectName"));
+                        projectNameList.add(jsonObject.getString("projectName"));
                         pListAdapter.addProject(p);
                         pListAdapter.notifyDataSetChanged();
                     }
@@ -120,7 +127,9 @@ public class MP_Project_Fragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                dataConn.setProjectNameList(projectNameList);
             }
+
         }
         GetProjectListAsync la = new GetProjectListAsync();
         la.execute();

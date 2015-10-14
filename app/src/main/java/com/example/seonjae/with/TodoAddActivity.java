@@ -4,17 +4,24 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.seonjae.with.dummy.ListProjectAdapter;
+import com.example.seonjae.with.dummy.MP_Project_Fragment;
 
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -25,6 +32,7 @@ public class TodoAddActivity extends AppCompatActivity {
     private int mMonth;
     private int mDay;
 
+    private Spinner spinner;
     private EditText workName;
     private EditText workDescription;
     private SeekBar priority;
@@ -35,8 +43,18 @@ public class TodoAddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo_add);
 
+        DataConn dataConn = new DataConn();
+        ArrayList<String> projectNameList = new ArrayList<String>();
+        projectNameList.addAll(dataConn.getProjectNameList());
+
+        ArrayAdapter<String> adapter = new  ArrayAdapter<String> (this , android.R.layout.simple_spinner_item, projectNameList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner = (Spinner)findViewById(R.id.spinner);
+        spinner.setSelection(0);
+        spinner.setAdapter (adapter);
+
         workName = (EditText)findViewById(R.id.workName);
-        workDescription = (EditText)findViewById(R.id.workDesciption);
+        workDescription = (EditText)findViewById(R.id.workDescription);
         endDate = (TextView)findViewById(R.id.endDate);
         priority = (SeekBar)findViewById(R.id.sbBar);
 
@@ -62,6 +80,7 @@ public class TodoAddActivity extends AppCompatActivity {
               @Override
               public void onClick(View v) {
                   String t_workID;
+                  String t_projectID = spinner.getSelectedItem().toString();
                   String t_workName = workName.getText().toString();
                   String t_workDescription = workDescription.getText().toString();
                   int t_priority = priority.getProgress();
@@ -78,7 +97,7 @@ public class TodoAddActivity extends AppCompatActivity {
                   t_workID = String.valueOf(ch1) + String.valueOf(ch2) + String.valueOf(ch3) + String.valueOf(ch4) + t_startDate.substring(0, 8);
 
                   try{
-                      URL url = new URL("http://with7.cloudapp.net/workAdd.php?workID=" + t_workID
+                      URL url = new URL("http://with7.cloudapp.net/workAdd.php?workID=" + t_workID +"&projectID="+t_projectID
                               + "&workName=" + t_workName + "&workContents=" + t_workDescription + "&complete=0"
                               + "&priority=" + t_priority + "&startDay=" + t_startDate + "&endDay="+t_endDate+ "&resiEmail=" +t_resiEmail);
                       url.openStream();

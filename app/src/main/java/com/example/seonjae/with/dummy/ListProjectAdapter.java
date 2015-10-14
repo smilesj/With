@@ -66,4 +66,5 @@ public class ListProjectAdapter extends BaseAdapter {
     public void addProject(ProjectData data){
         ProjectList.add(data);
     }
+
 }
