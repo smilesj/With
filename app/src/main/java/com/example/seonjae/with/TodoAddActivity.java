@@ -2,6 +2,7 @@ package com.example.seonjae.with;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,8 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.seonjae.with.dummy.ListProjectAdapter;
-import com.example.seonjae.with.dummy.MP_Project_Fragment;
+import com.example.seonjae.with.dummy.MP_TODO_Fragment;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,6 +24,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class TodoAddActivity extends AppCompatActivity {
 
@@ -36,6 +39,8 @@ public class TodoAddActivity extends AppCompatActivity {
     private EditText workName;
     private EditText workDescription;
     private SeekBar priority;
+    private DataConn dataConn;
+    private Map<String,String> projectInfo;
 
     static final int DATE_DIALOG_ID = 0;
     @Override
@@ -43,9 +48,12 @@ public class TodoAddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo_add);
 
-        DataConn dataConn = new DataConn();
+        dataConn = new DataConn();
         ArrayList<String> projectNameList = new ArrayList<String>();
         projectNameList.addAll(dataConn.getProjectNameList());
+
+        projectInfo = new HashMap<String, String>();
+        projectInfo.putAll(dataConn.getProjectInfo());
 
         ArrayAdapter<String> adapter = new  ArrayAdapter<String> (this , android.R.layout.simple_spinner_item, projectNameList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -80,7 +88,15 @@ public class TodoAddActivity extends AppCompatActivity {
               @Override
               public void onClick(View v) {
                   String t_workID;
-                  String t_projectID = spinner.getSelectedItem().toString();
+                  String t_projectID = "";
+                  Iterator<String> iterator = projectInfo.keySet().iterator();
+                  while(iterator.hasNext()){
+                      String key = iterator.next();
+                      String value = projectInfo.get(key);
+                      if(value.equals(spinner.getSelectedItem().toString())){
+                          t_projectID = key;
+                      }
+                  }
                   String t_workName = workName.getText().toString();
                   String t_workDescription = workDescription.getText().toString();
                   int t_priority = priority.getProgress();
@@ -103,6 +119,7 @@ public class TodoAddActivity extends AppCompatActivity {
                       url.openStream();
 
                       Toast.makeText(TodoAddActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
+                      finish();
                   }catch(IOException e){
                       e.printStackTrace();
                   }

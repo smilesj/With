@@ -33,7 +33,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by seonjae on 2015-10-05.
@@ -46,13 +48,14 @@ public class MP_Project_Fragment extends Fragment {
     private ArrayList<ProjectData> pDataList;
     private ProjectData pData;
     private ArrayList<String> projectNameList;
+    private Map<String,String> projectInfo;
     private DataConn dataConn;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         dataConn = new DataConn();
         projectNameList = new ArrayList<String>();
-
+        projectInfo = new HashMap<String, String>();
         pDataList = new ArrayList<ProjectData>();
         view = inflater.inflate(R.layout.mp_project_fragment, container, false);
         pListView = (ListView)view.findViewById(R.id.project_list);
@@ -113,6 +116,7 @@ public class MP_Project_Fragment extends Fragment {
             @Override
             protected void onPostExecute(String result) {
                 String s = result.trim();
+                Log.d("--------------SJ 5 :" , s);
                 final String json = s.replaceAll("\"", "\\\"");
                 try{
                     JSONArray jsonArray = new JSONArray(json);
@@ -120,6 +124,7 @@ public class MP_Project_Fragment extends Fragment {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         ProjectData p = new ProjectData(jsonObject.getString("projectName"));
                         projectNameList.add(jsonObject.getString("projectName"));
+                        projectInfo.put(jsonObject.getString("projectID"),jsonObject.getString("projectName"));
                         pListAdapter.addProject(p);
                         pListAdapter.notifyDataSetChanged();
                     }
@@ -128,6 +133,7 @@ public class MP_Project_Fragment extends Fragment {
                     e.printStackTrace();
                 }
                 dataConn.setProjectNameList(projectNameList);
+                dataConn.setProjectInfo(projectInfo);
             }
 
         }
