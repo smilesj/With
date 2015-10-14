@@ -16,11 +16,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.seonjae.with.dummy.ListTodoAdapter;
 import com.example.seonjae.with.dummy.MP_TODO_Fragment;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -141,8 +141,7 @@ public class TodoAddActivity extends AppCompatActivity {
         );
     }
 
-    private void updateDisplay()
-    {
+    private void updateDisplay() {
         endDate.setText(new StringBuilder()
                 .append(mYear).append("-")
                 .append(mMonth + 1).append("-")
