@@ -20,6 +20,7 @@ import com.example.seonjae.with.dummy.MP_TODO_Fragment;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -95,6 +96,7 @@ public class TodoAddActivity extends AppCompatActivity {
                       String value = projectInfo.get(key);
                       if(value.equals(spinner.getSelectedItem().toString())){
                           t_projectID = key;
+                          break;
                       }
                   }
                   String t_workName = workName.getText().toString();
@@ -103,7 +105,7 @@ public class TodoAddActivity extends AppCompatActivity {
                   Date date = new Date();
                   SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
                   String t_startDate = sdf.format(date);
-                  String t_endDate = String.valueOf(mYear)+String.valueOf(mMonth)+String.valueOf(mDay);
+                  String t_endDate = endDate.getText().toString();
                   String t_resiEmail = "test@mail.com"; //수정하기
 
                   char ch1 = (char) ((Math.random() * 26) + 65);
@@ -117,10 +119,21 @@ public class TodoAddActivity extends AppCompatActivity {
                               + "&workName=" + t_workName + "&workContents=" + t_workDescription + "&complete=0"
                               + "&priority=" + t_priority + "&startDay=" + t_startDate + "&endDay="+t_endDate+ "&resiEmail=" +t_resiEmail);
                       url.openStream();
+                      Log.d("---SJ7: ", url.toString());
+
+                  }catch(IOException e){
+                      e.printStackTrace();
+                  }
+
+                  try{
+                      URL url2 = new URL("http://with7.cloudapp.net/workChargeAdd.php?projectID=" + t_projectID
+                              +"&workerEmail=" + t_resiEmail + "&workID=" + t_workID + "&workName=" + t_workName
+                              + "&projectName=" +projectInfo.get(t_projectID) + "&endDay="+t_endDate);
+                      url2.openStream();
 
                       Toast.makeText(TodoAddActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
                       finish();
-                  }catch(IOException e){
+                  }catch (IOException e){
                       e.printStackTrace();
                   }
               }
@@ -133,7 +146,7 @@ public class TodoAddActivity extends AppCompatActivity {
         endDate.setText(new StringBuilder()
                 .append(mYear).append("-")
                 .append(mMonth + 1).append("-")
-                .append(mDay).append(" "));
+                .append(mDay));
     }
 
     private DatePickerDialog.OnDateSetListener mDateSetListener =  new DatePickerDialog.OnDateSetListener() {
