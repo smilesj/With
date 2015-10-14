@@ -9,12 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Bundle;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.seonjae.with.DataConn;
 import com.example.seonjae.with.ProjectAddActivity;
 import com.example.seonjae.with.R;
 import com.example.seonjae.with.data.ProjectData;
+import com.example.seonjae.with.project.ProjectHomeActivity;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -65,6 +68,22 @@ public class MP_Project_Fragment extends Fragment {
         pListView.setAdapter(pListAdapter);
 
         getProjectList();
+
+        pListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(), pListAdapter.getItem(position).getProjectName()+" :: "+ pListAdapter.getItem(position).getProjectID(), Toast.LENGTH_SHORT).show();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("projectID", pListAdapter.getItem(position).getProjectID());
+//                bundle.putString("projectName", pListAdapter.getItem(position).getProjectName());
+//                ProjectAddActivity projectAddActivity = new ProjectAddActivity();
+
+                Intent intent = new Intent(getActivity(), ProjectHomeActivity.class);
+                intent.putExtra("projectID", pListAdapter.getItem(position).getProjectID());
+                intent.putExtra("projectName", pListAdapter.getItem(position).getProjectName());
+                startActivity(intent);
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +141,7 @@ public class MP_Project_Fragment extends Fragment {
                     JSONArray jsonArray = new JSONArray(json);
                     for(int i = 0; i < jsonArray.length(); i++){
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        ProjectData p = new ProjectData(jsonObject.getString("projectName"));
+                        ProjectData p = new ProjectData(jsonObject.getString("projectID"), jsonObject.getString("projectName"));
                         projectNameList.add(jsonObject.getString("projectName"));
                         projectInfo.put(jsonObject.getString("projectID"),jsonObject.getString("projectName"));
                         pListAdapter.addProject(p);
