@@ -7,15 +7,21 @@ import java.sql.Date;
  */
 public class TodoData {
 
+    private String workID;
     private String todoName;
     private String projectName;
     private Date endDay;
 
-    public TodoData(String todoName, String projectName, Date endDay){
+    public TodoData(String workID, String todoName, String projectName, Date endDay){
+        this.workID = workID;
         this.todoName = todoName;
         this.projectName = projectName;
         this.endDay = endDay;
     }
+
+    public String getWorkID() { return workID; }
+
+    public void setWorkID(String workID) { this.workID = workID; }
 
     public String getTodoName() { return todoName; }
 

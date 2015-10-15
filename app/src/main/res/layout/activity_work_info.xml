@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.example.seonjae.with.WorkInfoActivity">
+
+    <LinearLayout
+        android:id="@+id/layoutWorkInfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="project name"/>
+        <TextView
+            android:id="@+id/valueProjectName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="work name"/>
+        <TextView
+            android:id="@+id/valueWorkName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="work description"/>
+        <TextView
+            android:id="@+id/valueWorkDes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="priority"/>
+        <TextView
+            android:id="@+id/valueWorkPriority"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="start day"/>
+        <TextView
+            android:id="@+id/valueStartDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="end day"/>
+        <TextView
+            android:id="@+id/valueEndDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutRewriteWorkInfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="project name"/>
+        <TextView
+            android:id="@+id/reProjectName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="work name"/>
+        <EditText
+            android:id="@+id/reWorkName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="work description"/>
+        <EditText
+            android:id="@+id/reWorkDes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="priority"/>
+        <SeekBar
+            android:id="@+id/rePriority"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="10"
+            android:paddingTop="20dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="start day"/>
+        <TextView
+            android:id="@+id/reStartDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="end day"/>
+        <TextView
+            android:id="@+id/reEndDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btnEndDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="select End Date" />
+
+        <Button
+            android:id="@+id/btnRewrite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rewrite OK" />
+
+        <Button
+            android:id="@+id/btnCancle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rewrite Cancle" />
+    </LinearLayout>
+
+</RelativeLayout>

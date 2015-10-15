@@ -1,9 +1,12 @@
 package com.example.seonjae.with.project;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -50,7 +53,7 @@ public class ProjectHomeActivity extends AppCompatActivity {
         Intent intent = getIntent();
         itemProjectID = intent.getExtras().getString("projectID");
         itemProjectName = intent.getExtras().getString("projectName");
-        Log.d("---------------SJ8: ", itemProjectID+" :: "+itemProjectName);
+        Log.d("---------------SJ8: ", itemProjectID + " :: " + itemProjectName);
         //title name change
         setTitle(itemProjectName);
 

@@ -9,10 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Bundle;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.seonjae.with.R;
 import com.example.seonjae.with.TodoAddActivity;
+import com.example.seonjae.with.WorkInfoActivity;
 import com.example.seonjae.with.data.ProjectData;
 import com.example.seonjae.with.data.TodoData;
 
@@ -61,6 +64,17 @@ public class MP_TODO_Fragment extends Fragment {
         tListView.setAdapter(tListAdapter);
 
         getTodoList();
+
+        tListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(), tListAdapter.getItem(position).getWorkID(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), WorkInfoActivity.class);
+                intent.putExtra("workID", tListAdapter.getItem(position).getWorkID());
+                intent.putExtra("projectName", tListAdapter.getItem(position).getProjectName());
+                startActivity(intent);
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +134,7 @@ public class MP_TODO_Fragment extends Fragment {
                     JSONArray jsonArray = new JSONArray(json);
                     for(int i = 0; i < jsonArray.length(); i++){
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        TodoData p = new TodoData(jsonObject.getString("workName"),jsonObject.getString("projectName"), Date.valueOf(jsonObject.getString("endDay")));
+                        TodoData p = new TodoData(jsonObject.getString("workID"), jsonObject.getString("workName"),jsonObject.getString("projectName"), Date.valueOf(jsonObject.getString("endDay")));
                         tListAdapter.addTodo(p);
                         tListAdapter.notifyDataSetChanged();
                     }
