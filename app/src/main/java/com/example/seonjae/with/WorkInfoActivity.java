@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.seonjae.with.data.TodoData;
 
@@ -125,6 +126,14 @@ public class WorkInfoActivity extends AppCompatActivity {
             }
         });
 
+        btnCancle = (Button)findViewById(R.id.btnCancle);
+        btnCancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         getWorkInfo();
     }
 
@@ -204,7 +213,7 @@ public class WorkInfoActivity extends AppCompatActivity {
                 nameValuePairs.add(new BasicNameValuePair("priority", String.valueOf(priority)));
                 nameValuePairs.add(new BasicNameValuePair("endDay", endDay));
                 String result = null;
-                Log.d("--------------SJ9_ :", workName);
+
                 try {
                     HttpClient httpClient = new DefaultHttpClient();
                     HttpPost httpPost = new HttpPost("http://with7.cloudapp.net/rewriteWorkInfo.php");
@@ -233,6 +242,11 @@ public class WorkInfoActivity extends AppCompatActivity {
             protected void onPostExecute(String result) {
                 String s = result.trim();
                 Log.d("--------------SJ9 :", s);
+                if(s.equalsIgnoreCase("success")){
+                    Toast.makeText(WorkInfoActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(WorkInfoActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
             }
 
         }
