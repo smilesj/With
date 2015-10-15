@@ -254,6 +254,56 @@ public class WorkInfoActivity extends AppCompatActivity {
         la.execute();
     }
 
+    private void deleteWorkInfo(){
+        class DeleteWorkInfoAsync extends AsyncTask<String, Void, String> {
+            @Override
+            protected String doInBackground(String... params) {
+
+                InputStream is = null;
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                nameValuePairs.add(new BasicNameValuePair("workID", workID));
+                String result = null;
+
+                try {
+                    HttpClient httpClient = new DefaultHttpClient();
+                    HttpPost httpPost = new HttpPost("http://with7.cloudapp.net/deleteWorkInfo.php");
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf-8"));
+
+                    HttpResponse response = httpClient.execute(httpPost);
+                    HttpEntity entity = response.getEntity();
+
+                    is = entity.getContent();
+
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
+                    StringBuilder sb = new StringBuilder();
+
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    result = sb.toString();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return result;
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                String s = result.trim();
+                Log.d("--------------SJ10 :", s);
+                if(s.equalsIgnoreCase("success")){
+                    Toast.makeText(WorkInfoActivity.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(WorkInfoActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+            }
+
+        }
+        DeleteWorkInfoAsync la = new DeleteWorkInfoAsync();
+        la.execute();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -281,6 +331,7 @@ public class WorkInfoActivity extends AppCompatActivity {
             return true;
         }
         else if (id == R.id.workinfo_delete) {
+            deleteWorkInfo();
             return true;
         }
 
