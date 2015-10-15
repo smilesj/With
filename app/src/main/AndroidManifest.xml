@@ -35,8 +35,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProejectAddActivity" >
-        </activity>
         <activity android:name=".ProjectAddActivity" >
         </activity>
         <activity android:name=".TodoAddActivity" >
@@ -47,6 +45,8 @@
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity android:name=".WorkInfoActivity" >
+        </activity>
+        <activity android:name=".SplashActivity">
         </activity>
     </application>
 

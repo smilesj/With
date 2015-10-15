@@ -44,6 +44,8 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
+        startActivity(new Intent(this, SplashActivity.class));
+
         loginEmail = (EditText)findViewById(R.id.loginEmail);
         loginPasswd = (EditText)findViewById(R.id.loginPasswd);
 
