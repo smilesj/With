@@ -43,7 +43,7 @@ public class ProjectHomeActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
-    private String itemProjectID;
+    static public String itemProjectID;
     private String itemProjectName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class ProjectHomeActivity extends AppCompatActivity {
         Intent intent = getIntent();
         itemProjectID = intent.getExtras().getString("projectID");
         itemProjectName = intent.getExtras().getString("projectName");
-        Log.d("---------------SJ8: ", itemProjectID + " :: " + itemProjectName);
+
         //title name change
         setTitle(itemProjectName);
 
@@ -119,7 +119,12 @@ public class ProjectHomeActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            if(position == 0)
+                return new PP_HOME_Fragment();
+            else if(position == 1)
+                return new PP_Progress_Fragment();
+            else
+                return PlaceholderFragment.newInstance(position + 1);
         }
 
         @Override
@@ -132,11 +137,11 @@ public class ProjectHomeActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "SECTION 1";
+                    return "HOME";
                 case 1:
-                    return "SECTION 2";
+                    return "Progress";
                 case 2:
-                    return "SECTION 3";
+                    return "History";
             }
             return null;
         }

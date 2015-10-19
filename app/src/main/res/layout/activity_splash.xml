@@ -3,11 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ecbdf2">
-    <TextView
+    tools:context="com.example.seonjae.with.SplashActivity">
+    <ImageView
+        android:id="@+id/imageSplash"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="100dp"
-        android:text="Splash"/>
+        android:layout_height="match_parent"/>
 </RelativeLayout>
