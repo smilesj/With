@@ -14,12 +14,6 @@
         custom:arc_progress="55"
         custom:arc_bottom_text="MEMORY" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="progress test!" />
-
-
     <ListView
         android:id="@+id/list_worker"
         android:layout_width="fill_parent"
