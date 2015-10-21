@@ -15,6 +15,7 @@ import com.example.seonjae.with.R;
 import com.example.seonjae.with.data.NoticeData;
 import com.example.seonjae.with.data.WorkerData;
 import com.example.seonjae.with.dummy.ListWorkerAdapter;
+import com.github.lzyzsd.circleprogress.ArcProgress;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -43,6 +44,8 @@ public class PP_Progress_Fragment extends Fragment {
     private ListWorkerAdapter workerListAdapter = null;
     private ArrayList<WorkerData> workerDataList;
     private WorkerData workerData;
+    private ArcProgress progressAll;
+    static public int progressAllValue;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,6 +59,8 @@ public class PP_Progress_Fragment extends Fragment {
         workerListView.setAdapter(workerListAdapter);
         getWorkerList();
 
+        progressAll = (ArcProgress)view.findViewById(R.id.progressAll);
+        progressAll.setProgress(progressAllValue);
         return view;
     }
 
@@ -102,7 +107,7 @@ public class PP_Progress_Fragment extends Fragment {
                     JSONArray jsonArray = new JSONArray(json);
                     for(int i = 0; i < jsonArray.length(); i++){
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        WorkerData p = new WorkerData(jsonObject.getString("workerEmail"), jsonObject.getInt("workerProgress"));
+                        WorkerData p = new WorkerData(jsonObject.getString("workerEmail"), jsonObject.getInt("workerProgress"), jsonObject.getInt("allProgress"));
                         workerListAdapter.addWorker(p);
                         workerListAdapter.notifyDataSetChanged();
                     }

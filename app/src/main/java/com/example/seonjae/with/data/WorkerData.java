@@ -7,10 +7,12 @@ public class WorkerData {
 
     private String workerEmail;
     private int workerProgress;
+    private int allProgress;
 
-    public WorkerData(String workerEmail, int workerProgress){
+    public WorkerData(String workerEmail, int workerProgress, int allProgress){
         this.workerEmail = workerEmail;
         this.workerProgress = workerProgress;
+        this.allProgress = allProgress;
     }
 
     public String getWorkerEmail(){
@@ -27,5 +29,13 @@ public class WorkerData {
 
     public void setWorkerProgress(int workerProgress){
         this.workerProgress = workerProgress;
+    }
+
+    public int getAllProgress(){
+        return allProgress;
+    }
+
+    public void setAllProgress(int allProgress){
+        this.allProgress = allProgress;
     }
 }

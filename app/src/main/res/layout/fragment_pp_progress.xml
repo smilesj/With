@@ -8,11 +8,10 @@
 
     <com.github.lzyzsd.circleprogress.ArcProgress
         android:id="@+id/progressAll"
-        android:layout_marginLeft="50dp"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        custom:arc_progress="55"
-        custom:arc_bottom_text="MEMORY" />
+        android:layout_gravity="center"
+        custom:arc_bottom_text="ALL PROGRESS" />
 
     <ListView
         android:id="@+id/list_worker"
