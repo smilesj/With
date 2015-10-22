@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.seonjae.with.gcm.GcmActivity;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -64,6 +66,15 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(StartActivity.this, SignInActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button btnGcm = (Button)findViewById(R.id.GcmButton);
+        btnGcm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StartActivity.this, GcmActivity.class);
                 startActivity(intent);
             }
         });

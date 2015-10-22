@@ -57,7 +57,8 @@ public class ListWorkerAdapter extends BaseAdapter {
         }
 
         progressWorker = (IconRoundCornerProgressBar)convertView.findViewById(R.id.progressWorker);
-        progressWorker.setIconSize(50);
+        progressWorker.setIconSize(280);
+
         workerData = getItem(position);
 
         if(workerData != null){

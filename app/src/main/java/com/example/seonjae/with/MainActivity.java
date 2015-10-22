@@ -1,5 +1,7 @@
 package com.example.seonjae.with;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
     private String userEmail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
