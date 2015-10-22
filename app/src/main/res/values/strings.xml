@@ -22,4 +22,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_todo_add">TodoAddActivity</string>
     <string name="title_activity_project_home">ProjectHomeActivity</string>
+
+    <string name="gcm_defaultSenderId">874181764366</string>
 </resources>

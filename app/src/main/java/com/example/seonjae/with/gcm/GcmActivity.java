@@ -65,7 +65,6 @@ public class GcmActivity extends AppCompatActivity {
                     String token = intent.getStringExtra("token");
                     mInformationTextView.setText(token);
                 }
-
             }
         };
     }
