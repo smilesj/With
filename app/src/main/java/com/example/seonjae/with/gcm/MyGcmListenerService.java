@@ -1,16 +1,20 @@
 package com.example.seonjae.with.gcm;
 
+import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.seonjae.with.R;
+import com.example.seonjae.with.dialog.DialogGcmActivity;
 import com.google.android.gms.gcm.GcmListenerService;
 
 /**
@@ -34,6 +38,8 @@ public class MyGcmListenerService extends GcmListenerService {
 
         // GCM으로 받은 메세지를 디바이스에 알려주는 sendNotification()을 호출한다.
         sendNotification(title, message);
+        //Toast.makeText(this, "테스트입니다!", Toast.LENGTH_LONG).show();
+        popup(message);
     }
 
 
@@ -59,5 +65,26 @@ public class MyGcmListenerService extends GcmListenerService {
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+        //DialogSimple();
     }
+
+    private void popup(String message){
+        Bundle bundle = new Bundle();
+        bundle.putString("message", message);
+        Intent popIntent = new Intent(getApplicationContext(), DialogGcmActivity.class);
+        popIntent.putExtras(bundle);
+        PendingIntent pie = PendingIntent.getActivity(getApplicationContext(), 0, popIntent, PendingIntent.FLAG_ONE_SHOT);
+        try{
+            pie.send();
+        }
+        catch(PendingIntent.CanceledException e){
+            e.printStackTrace();
+        }
+    }
+
+
+//    private void getMessage(Intent intent, Context context){
+//        Intent popupIntent = new Intent(context, Popup.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        context.startActivity(popupIntent);
+//    }
 }

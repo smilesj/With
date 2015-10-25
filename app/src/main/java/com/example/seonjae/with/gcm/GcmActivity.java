@@ -1,15 +1,19 @@
 package com.example.seonjae.with.gcm;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
+import android.os.PowerManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -40,7 +44,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GcmActivity extends AppCompatActivity {
+public class GcmActivity extends AppCompatActivity { // Activity {
 
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static final String TAG = "GcmActivity";
@@ -97,6 +101,7 @@ public class GcmActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gcm);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 
         registBroadcastReceiver();
         // 토큰을 보여줄 TextView를 정의
@@ -147,6 +152,11 @@ public class GcmActivity extends AppCompatActivity {
                 InputStream is = null;
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
                 nameValuePairs.add(new BasicNameValuePair("regID", token));
+                nameValuePairs.add(new BasicNameValuePair("regid1", "ceNIF2ctscc:APA91bEB3udpLZrYdGXtuy5Z8R9TpFhjbsce-mE3ctt5845z0aemdPUzBe1mXXK9Pxe6CTaQmtACaq5R9j1Wg1nQxCjz3yNrBoOpQ0aq3dSKBghEZB5o8fqjP3gRHY2K2axmvKUM_cjo"));
+                nameValuePairs.add(new BasicNameValuePair("regid2", "cC-7KkGztpk:APA91bE3Wd4gRL6uF2mnBjFxMfKCySaNi3MYJxgy2AWOxgCrJsHPt9dGWR8Yne-yYaWfKrNjGB6NeHu5MWefC0c3aU-IAgh36T5RCisErhz9oJiwHcFeRCwlSCtoTt4HesFhsOXI9ZTR"));
+                nameValuePairs.add(new BasicNameValuePair("message", "hello message"));
+                nameValuePairs.add(new BasicNameValuePair("devices[]", "ceNIF2ctscc:APA91bEB3udpLZrYdGXtuy5Z8R9TpFhjbsce-mE3ctt5845z0aemdPUzBe1mXXK9Pxe6CTaQmtACaq5R9j1Wg1nQxCjz3yNrBoOpQ0aq3dSKBghEZB5o8fqjP3gRHY2K2axmvKUM_cjo"));
+                nameValuePairs.add(new BasicNameValuePair("devices[]", "cC-7KkGztpk:APA91bE3Wd4gRL6uF2mnBjFxMfKCySaNi3MYJxgy2AWOxgCrJsHPt9dGWR8Yne-yYaWfKrNjGB6NeHu5MWefC0c3aU-IAgh36T5RCisErhz9oJiwHcFeRCwlSCtoTt4HesFhsOXI9ZTR"));
                 String result = null;
 
                 try {
@@ -206,8 +216,8 @@ public class GcmActivity extends AppCompatActivity {
                 new IntentFilter("registrationGenerating"));
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
                 new IntentFilter("registrationComplete"));
-
     }
+
 
     /**
      * 앱이 화면에서 사라지면 등록된 LocalBoardcast를 모두 삭제한다.
@@ -235,4 +245,7 @@ public class GcmActivity extends AppCompatActivity {
         return true;
     }
 
+    public static boolean isScreenOn(Context context) {
+        return ((PowerManager)context.getSystemService(Context.POWER_SERVICE)).isScreenOn();
+    }
 }
