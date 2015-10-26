@@ -1,11 +1,13 @@
 package com.example.seonjae.with.project;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -76,18 +79,64 @@ public class PP_HOME_Fragment extends Fragment {
 
         getIssueList();
 
+
+
         noticeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getActivity(), ProjectHomeActivity.itemProjectID + " :: " + noticeListAdapter.getItem(position).getNoticeTitle(), Toast.LENGTH_SHORT).show();
-//                Bundle bundle = new Bundle();
-//                bundle.putString("projectID", pListAdapter.getItem(position).getProjectID());
-//                bundle.putString("projectName", pListAdapter.getItem(position).getProjectName());
-//                ProjectAddActivity projectAddActivity = new ProjectAddActivity();
+                LayoutInflater inflater2 = getActivity().getLayoutInflater();
+                final View dialogNoticeView= inflater2.inflate(R.layout.dialog_notice_info, null);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle(noticeListAdapter.getItem(position).getNoticeTitle());
+                builder.setView(dialogNoticeView);
+                TextView d_noticeContents = (TextView)dialogNoticeView.findViewById(R.id.dialog_notice_contents);
+                d_noticeContents.setText(noticeListAdapter.getItem(position).getNoticeContents());
+                TextView d_noticeDate = (TextView)dialogNoticeView.findViewById(R.id.dialog_notice_date);
+                d_noticeDate.setText(noticeListAdapter.getItem(position).getNoticeDate().toString());
+                TextView d_noticeWriter = (TextView)dialogNoticeView.findViewById(R.id.dialog_notice_writer);
+                d_noticeWriter.setText(noticeListAdapter.getItem(position).getWriter());
+                builder.setPositiveButton("확인",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // Action for 'Yes' Button
+                            }
+                        });
 
-//                Intent intent = new Intent(getActivity(), ProjectHomeActivity.class);
-//                //intent.putExtra("projectID", noticeListAdapter.getItem(position).);
-//                startActivity(intent);
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
+
+        issueListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(), ProjectHomeActivity.itemProjectID + " :: " + issueListAdapter.getItem(position).getIssueTitle(), Toast.LENGTH_SHORT).show();
+                LayoutInflater inflater2 = getActivity().getLayoutInflater();
+                final View dialogIssueView= inflater2.inflate(R.layout.dialog_issue_info, null);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle(issueListAdapter.getItem(position).getIssueTitle());
+                builder.setView(dialogIssueView);
+                TextView d_issueContents = (TextView)dialogIssueView.findViewById(R.id.dialog_issue_contents);
+                d_issueContents.setText(issueListAdapter.getItem(position).getIssueContents());
+                TextView d_issueSolution = (TextView)dialogIssueView.findViewById(R.id.dialog_issue_solution);
+                if(issueListAdapter.getItem(position).getIssueSolution().equals(""))
+                    d_issueSolution.setText("-");
+                else
+                    d_issueSolution.setText(issueListAdapter.getItem(position).getIssueSolution());
+                TextView d_issueDate = (TextView)dialogIssueView.findViewById(R.id.dialog_issue_date);
+                d_issueDate.setText(issueListAdapter.getItem(position).getIssueDate().toString());
+                TextView d_issueWriter = (TextView)dialogIssueView.findViewById(R.id.dialog_issue_writer);
+                d_issueWriter.setText(issueListAdapter.getItem(position).getWriter());
+                builder.setPositiveButton("확인",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // Action for 'Yes' Button
+                            }
+                        });
+
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         });
 
