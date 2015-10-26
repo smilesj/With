@@ -104,6 +104,8 @@
         <!-- [END gcm_registration_service] -->
         <activity android:name=".project.NoticeAddActivity" >
         </activity>
+        <activity android:name=".project.IssueAddActivity" >
+        </activity>
     </application>
 
 </manifest>

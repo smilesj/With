@@ -159,7 +159,9 @@ public class PP_HOME_Fragment extends Fragment {
         actionB.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity().getBaseContext(), "B", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity().getBaseContext(), "add Issue", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), IssueAddActivity.class);
+                startActivity(intent);
             }
         });
 
