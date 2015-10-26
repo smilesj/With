@@ -53,9 +53,11 @@ public class MP_Project_Fragment extends Fragment {
     private ArrayList<String> projectNameList;
     private Map<String,String> projectInfo;
     private DataConn dataConn;
+    static public Map<String, Map<String, String>> team;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        team = new HashMap<String, Map<String,String>>();
         dataConn = new DataConn();
         projectNameList = new ArrayList<String>();
         projectInfo = new HashMap<String, String>();
@@ -94,6 +96,8 @@ public class MP_Project_Fragment extends Fragment {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
+
+        getTeamWorkerList();
 
         return view;
     }
@@ -157,6 +161,72 @@ public class MP_Project_Fragment extends Fragment {
 
         }
         GetProjectListAsync la = new GetProjectListAsync();
+        la.execute();
+    }
+
+    private void getTeamWorkerList() {
+        class GetTeamWorkerListAsync extends AsyncTask<String, Void, String> {
+            @Override
+            protected String doInBackground(String... params) {
+                String t_email = "test@mail.com";
+
+                InputStream is = null;
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                nameValuePairs.add(new BasicNameValuePair("email", t_email));
+                String result = null;
+
+                try {
+                    HttpClient httpClient = new DefaultHttpClient();
+                    HttpPost httpPost = new HttpPost("http://with7.cloudapp.net/getTeamWorkerList.php");
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf-8"));
+
+                    HttpResponse response = httpClient.execute(httpPost);
+                    HttpEntity entity = response.getEntity();
+
+                    is = entity.getContent();
+
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
+                    StringBuilder sb = new StringBuilder();
+
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    result = sb.toString();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return result;
+            }
+            @Override
+            protected void onPostExecute(String result) {
+                String s = result.trim();
+                Log.d("--------------SJ17 :" , s);
+                final String json = s.replaceAll("\"", "\\\"");
+                try{
+                    JSONArray jsonArray = new JSONArray(json);
+                    for(int i = 0; i < jsonArray.length(); i++){
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        if(!team.containsKey(jsonObject.getString("projectID"))){
+                            Map<String, String> workers = new HashMap<String, String>();
+                            workers.put(jsonObject.getString("email"), jsonObject.getString("regID"));
+                            team.put(jsonObject.getString("projectID"), workers);
+                            Log.d("--------------SJ18 :", team.toString());
+                        }
+                        else{
+                            Map<String, String> workers = team.get(jsonObject.getString("projectID"));
+                            workers.put(jsonObject.getString("email"), jsonObject.getString("regID"));
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+        GetTeamWorkerListAsync la = new GetTeamWorkerListAsync();
         la.execute();
     }
 }

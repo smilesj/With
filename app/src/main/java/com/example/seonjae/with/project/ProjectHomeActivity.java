@@ -45,6 +45,7 @@ public class ProjectHomeActivity extends AppCompatActivity {
 
     static public String itemProjectID;
     static public String itemProjectName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

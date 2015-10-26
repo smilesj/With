@@ -1,5 +1,8 @@
 package com.example.seonjae.with.data;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by seonjae on 2015-10-05.
  */
@@ -23,5 +26,4 @@ public class ProjectData {
     public void setProjectName(String projectName){
         this.projectName = projectName;
     }
-
 }

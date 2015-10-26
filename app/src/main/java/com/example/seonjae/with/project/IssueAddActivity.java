@@ -159,7 +159,6 @@ public class IssueAddActivity extends AppCompatActivity {
 
                 if(action.equals("registrationComplete")){
                     token = intent.getStringExtra("token");
-                    Log.d("---SJ* :", token);
                 }
             }
         };
