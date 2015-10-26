@@ -67,6 +67,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="add worker"/>
+        <Spinner
+            android:id="@+id/spinnerWorker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </Spinner>
+
         <Button
             android:id="@+id/btnAddWork"
             android:layout_width="match_parent"

@@ -7,17 +7,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.seonjae.with.dummy.ListTodoAdapter;
+import com.example.seonjae.with.dummy.MP_Project_Fragment;
 import com.example.seonjae.with.dummy.MP_TODO_Fragment;
+import com.example.seonjae.with.project.ProjectHomeActivity;
 
 import java.io.IOException;
 import java.net.URL;
@@ -42,7 +46,11 @@ public class TodoAddActivity extends AppCompatActivity {
     private SeekBar priority;
     private DataConn dataConn;
     private Map<String,String> projectInfo;
-
+    private Spinner spinnerWorker;
+    private String pID;
+    private String pName;
+    private ArrayAdapter<String> workerAdapter;
+    private ArrayList<String> workerList;
     static final int DATE_DIALOG_ID = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,16 +64,73 @@ public class TodoAddActivity extends AppCompatActivity {
         projectInfo = new HashMap<String, String>();
         projectInfo.putAll(dataConn.getProjectInfo());
 
+
         ArrayAdapter<String> adapter = new  ArrayAdapter<String> (this , android.R.layout.simple_spinner_item, projectNameList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner = (Spinner)findViewById(R.id.spinner);
         spinner.setSelection(0);
-        spinner.setAdapter (adapter);
+        spinner.setAdapter(adapter);
+        pName = spinner.getSelectedItem().toString();
+        Iterator<String> it = projectInfo.keySet().iterator();
+        while(it.hasNext()){
+            String key = it.next();
+            String value = projectInfo.get(key);
 
-        workName = (EditText)findViewById(R.id.workName);
+            if(value.equals(pName)){
+                pID = key;
+            }
+        }
+
+        workerList = new ArrayList<String>();
+        Iterator<String> iterator = MP_Project_Fragment.team.get(pID).keySet().iterator();
+        while(iterator.hasNext()){
+            String key = iterator.next();
+            workerList.add(key);
+        }
+        workerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, workerList);
+        workerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerWorker = (Spinner)findViewById(R.id.spinnerWorker);
+        spinnerWorker.setAdapter(workerAdapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                pName = spinner.getSelectedItem().toString();
+
+                Iterator<String> iterator = projectInfo.keySet().iterator();
+                while(iterator.hasNext()){
+                    String key = iterator.next();
+                    String value = projectInfo.get(key);
+
+                    if(value.equals(pName)){
+                        pID = key;
+                    }
+                }
+
+                workerList.clear();
+                Iterator<String> iterator2 = MP_Project_Fragment.team.get(pID).keySet().iterator();
+                while(iterator2.hasNext()) {
+                    String key = iterator2.next();
+                    workerList.add(key);
+                }
+
+                workerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerWorker = (Spinner)findViewById(R.id.spinnerWorker);
+                workerAdapter.notifyDataSetChanged();
+                spinnerWorker.setAdapter(workerAdapter);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                return;
+            }
+        });
+
+        workName = (EditText) findViewById(R.id.workName);
         workDescription = (EditText)findViewById(R.id.workDescription);
         endDate = (TextView)findViewById(R.id.endDate);
         priority = (SeekBar)findViewById(R.id.sbBar);
+
 
         Button selectEnddate = (Button)findViewById(R.id.selectEnddate);
         selectEnddate.setOnClickListener(new View.OnClickListener() {

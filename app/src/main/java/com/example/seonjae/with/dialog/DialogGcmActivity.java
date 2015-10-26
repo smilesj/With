@@ -44,8 +44,8 @@ public class DialogGcmActivity extends Activity {
         builder.setNegativeButton("닫기",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        //finish();
-                        android.os.Process.killProcess(android.os.Process.myPid());
+                        finish();
+                        //android.os.Process.killProcess(android.os.Process.myPid());
                     }
                 });
 
