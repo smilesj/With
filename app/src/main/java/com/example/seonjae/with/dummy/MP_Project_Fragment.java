@@ -211,7 +211,6 @@ public class MP_Project_Fragment extends Fragment {
                             Map<String, String> workers = new HashMap<String, String>();
                             workers.put(jsonObject.getString("email"), jsonObject.getString("regID"));
                             team.put(jsonObject.getString("projectID"), workers);
-                            Log.d("--------------SJ18 :", team.toString());
                         }
                         else{
                             Map<String, String> workers = team.get(jsonObject.getString("projectID"));

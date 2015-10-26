@@ -25,6 +25,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.seonjae.with.R;
+import com.example.seonjae.with.dummy.MP_Project_Fragment;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProjectHomeActivity extends AppCompatActivity {
 
@@ -45,6 +49,7 @@ public class ProjectHomeActivity extends AppCompatActivity {
 
     static public String itemProjectID;
     static public String itemProjectName;
+    static public Map<String, String> itemProjectWorker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,8 @@ public class ProjectHomeActivity extends AppCompatActivity {
         Intent intent = getIntent();
         itemProjectID = intent.getExtras().getString("projectID");
         itemProjectName = intent.getExtras().getString("projectName");
+        itemProjectWorker = new HashMap<String, String>();
+        itemProjectWorker = MP_Project_Fragment.team.get(itemProjectID);
 
         //title name change
         setTitle(itemProjectName);

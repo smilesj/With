@@ -39,6 +39,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class NoticeAddActivity extends AppCompatActivity {
@@ -159,7 +160,6 @@ public class NoticeAddActivity extends AppCompatActivity {
 
                 if(action.equals("registrationComplete")){
                     token = intent.getStringExtra("token");
-                    Log.d("---SJ* :", token);
                 }
             }
         };
@@ -190,8 +190,12 @@ public class NoticeAddActivity extends AppCompatActivity {
                 nameValuePairs.add(new BasicNameValuePair("title", ProjectHomeActivity.itemProjectName));
                 nameValuePairs.add(new BasicNameValuePair("type", "Notice"));
                 nameValuePairs.add(new BasicNameValuePair("message", msg));
-                nameValuePairs.add(new BasicNameValuePair("devices[]", "ceNIF2ctscc:APA91bEB3udpLZrYdGXtuy5Z8R9TpFhjbsce-mE3ctt5845z0aemdPUzBe1mXXK9Pxe6CTaQmtACaq5R9j1Wg1nQxCjz3yNrBoOpQ0aq3dSKBghEZB5o8fqjP3gRHY2K2axmvKUM_cjo"));
-                nameValuePairs.add(new BasicNameValuePair("devices[]", "cC-7KkGztpk:APA91bE3Wd4gRL6uF2mnBjFxMfKCySaNi3MYJxgy2AWOxgCrJsHPt9dGWR8Yne-yYaWfKrNjGB6NeHu5MWefC0c3aU-IAgh36T5RCisErhz9oJiwHcFeRCwlSCtoTt4HesFhsOXI9ZTR"));
+                Iterator<String> iterator = ProjectHomeActivity.itemProjectWorker.keySet().iterator();
+                while(iterator.hasNext()){
+                    String key = iterator.next();
+                    String value = ProjectHomeActivity.itemProjectWorker.get(key);
+                    nameValuePairs.add(new BasicNameValuePair("devices[]", value));
+                }
                 String result = null;
 
                 try {
@@ -220,8 +224,6 @@ public class NoticeAddActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(String result) {
                 String s = result.trim();
-                Log.d("--------------SJ 5 :" , s);
-
             }
 
         }
