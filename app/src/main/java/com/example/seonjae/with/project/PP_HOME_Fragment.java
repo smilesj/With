@@ -1,19 +1,29 @@
 package com.example.seonjae.with.project;
 
+import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
+
+import android.view.View.OnClickListener;
+import android.widget.Toast;
+
 
 import com.example.seonjae.with.R;
 import com.example.seonjae.with.data.IssueData;
 import com.example.seonjae.with.data.NoticeData;
 import com.example.seonjae.with.dummy.ListIssueAdapter;
 import com.example.seonjae.with.dummy.ListNoticeAdapter;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -64,6 +74,37 @@ public class PP_HOME_Fragment extends Fragment {
         issueListView.setAdapter(issueListAdapter);
 
         getIssueList();
+
+//        FloatingActionButton button = (FloatingActionButton)view.findViewById(R.id.setter);
+//        button.setSize(FloatingActionButton.SIZE_NORMAL);
+//        button.setStrokeVisible(false);
+
+        final FloatingActionButton actionA = (FloatingActionButton)view.findViewById(R.id.action_a);
+        actionA.setSize(FloatingActionButton.SIZE_MINI);
+        actionA.setTitle("add Notice");
+        actionA.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity().getBaseContext(), "add Notice", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), NoticeAddActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        final FloatingActionButton actionB = (FloatingActionButton)view.findViewById(R.id.action_b);
+        actionB.setSize(FloatingActionButton.SIZE_MINI);
+        actionB.setTitle("add Issue");
+        actionB.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity().getBaseContext(), "B", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        final FloatingActionsMenu menuMultipleActions = (FloatingActionsMenu)view.findViewById(R.id.multiple_actions);
+        //menuMultipleActions.addButton(actionA);
+        //menuMultipleActions.addButton(actionB);
+
         return view;
     }
 
