@@ -121,7 +121,7 @@ public class PP_HOME_Fragment extends Fragment {
                 try {
                     HttpClient httpClient = new DefaultHttpClient();
                     HttpPost httpPost = new HttpPost("http://with7.cloudapp.net/getNoticeList.php");
-                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf-8"));
 
                     HttpResponse response = httpClient.execute(httpPost);
                     HttpEntity entity = response.getEntity();
@@ -180,7 +180,7 @@ public class PP_HOME_Fragment extends Fragment {
                 try {
                     HttpClient httpClient = new DefaultHttpClient();
                     HttpPost httpPost = new HttpPost("http://with7.cloudapp.net/getIssueList.php");
-                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf-8"));
 
                     HttpResponse response = httpClient.execute(httpPost);
                     HttpEntity entity = response.getEntity();
