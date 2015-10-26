@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -75,9 +76,20 @@ public class PP_HOME_Fragment extends Fragment {
 
         getIssueList();
 
-//        FloatingActionButton button = (FloatingActionButton)view.findViewById(R.id.setter);
-//        button.setSize(FloatingActionButton.SIZE_NORMAL);
-//        button.setStrokeVisible(false);
+        noticeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(), ProjectHomeActivity.itemProjectID + " :: " + noticeListAdapter.getItem(position).getNoticeTitle(), Toast.LENGTH_SHORT).show();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("projectID", pListAdapter.getItem(position).getProjectID());
+//                bundle.putString("projectName", pListAdapter.getItem(position).getProjectName());
+//                ProjectAddActivity projectAddActivity = new ProjectAddActivity();
+
+//                Intent intent = new Intent(getActivity(), ProjectHomeActivity.class);
+//                //intent.putExtra("projectID", noticeListAdapter.getItem(position).);
+//                startActivity(intent);
+            }
+        });
 
         final FloatingActionButton actionA = (FloatingActionButton)view.findViewById(R.id.action_a);
         actionA.setSize(FloatingActionButton.SIZE_MINI);
