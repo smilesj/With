@@ -35,18 +35,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginRight="65dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Notice"/>
-            <ListView
-                android:id="@+id/list_notice"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="false"
-                android:clickable="true">
-            </ListView>
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+                <ListView
+                    android:id="@+id/list_notice"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:scrollbars="vertical">
+                </ListView>
+            </ScrollView>
         </LinearLayout>
 
         <LinearLayout
@@ -54,16 +61,22 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_marginBottom="65dp">
+            android:layout_marginBottom="65dp"
+            android:layout_marginRight="65dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Issue"/>
-            <ListView
-                android:id="@+id/list_issue"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </ListView>
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+                <ListView
+                    android:id="@+id/list_issue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </ListView>
+            </ScrollView>
         </LinearLayout>
     </LinearLayout>
     <!--<com.getbase.floatingactionbutton.FloatingActionButton-->

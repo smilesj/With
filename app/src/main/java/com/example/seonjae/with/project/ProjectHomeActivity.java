@@ -44,7 +44,7 @@ public class ProjectHomeActivity extends AppCompatActivity {
     private ViewPager mViewPager;
 
     static public String itemProjectID;
-    private String itemProjectName;
+    static public String itemProjectName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

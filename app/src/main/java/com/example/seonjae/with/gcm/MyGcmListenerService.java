@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.seonjae.with.R;
 import com.example.seonjae.with.dialog.DialogGcmActivity;
+import com.example.seonjae.with.project.ProjectHomeActivity;
 import com.google.android.gms.gcm.GcmListenerService;
 
 /**
@@ -39,7 +40,7 @@ public class MyGcmListenerService extends GcmListenerService {
         // GCM으로 받은 메세지를 디바이스에 알려주는 sendNotification()을 호출한다.
         sendNotification(title, message);
         //Toast.makeText(this, "테스트입니다!", Toast.LENGTH_LONG).show();
-        popup(message);
+        popup(title, message);
     }
 
 
@@ -68,8 +69,10 @@ public class MyGcmListenerService extends GcmListenerService {
         //DialogSimple();
     }
 
-    private void popup(String message){
+    private void popup(String title, String message){
         Bundle bundle = new Bundle();
+        bundle.putString("projectName", ProjectHomeActivity.itemProjectName);
+        bundle.putString("title", title);
         bundle.putString("message", message);
         Intent popIntent = new Intent(getApplicationContext(), DialogGcmActivity.class);
         popIntent.putExtras(bundle);
