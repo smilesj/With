@@ -61,6 +61,7 @@ public class PP_Progress_Fragment extends Fragment {
 
         progressAll = (ArcProgress)view.findViewById(R.id.progressAll);
         progressAll.setProgress(progressAllValue);
+        updateProgressAll();
         return view;
     }
 
@@ -79,6 +80,51 @@ public class PP_Progress_Fragment extends Fragment {
         }
         progressAllValue =  (int)tempValue +(int)(remainder * 100) ;
         progressAll.setProgress(progressAllValue);
+    }
+
+    private void updateProgressAll(){
+        class UpdateProgressAllAsync extends AsyncTask<String, Void, String> {
+            @Override
+            protected String doInBackground(String... params) {
+                InputStream is = null;
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                nameValuePairs.add(new BasicNameValuePair("projectID", ProjectHomeActivity.itemProjectID.toString()));
+                nameValuePairs.add(new BasicNameValuePair("progressAll", String.valueOf(progressAllValue)));
+                String result = null;
+
+                try {
+                    HttpClient httpClient = new DefaultHttpClient();
+                    HttpPost httpPost = new HttpPost("http://with7.cloudapp.net/updateProgressAll.php");
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf-8"));
+
+                    HttpResponse response = httpClient.execute(httpPost);
+                    HttpEntity entity = response.getEntity();
+
+                    is = entity.getContent();
+
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
+                    StringBuilder sb = new StringBuilder();
+
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    result = sb.toString();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return result;
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                String s = result.trim();
+                final String json = s.replaceAll("\"", "\\\"");
+            }
+
+        }
+        UpdateProgressAllAsync la = new UpdateProgressAllAsync();
+        la.execute();
     }
 
     private void getWorkerList(){
