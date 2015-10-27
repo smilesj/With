@@ -126,6 +126,19 @@ public class TodoAddActivity extends AppCompatActivity {
             }
         });
 
+        spinnerWorker.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         workName = (EditText) findViewById(R.id.workName);
         workDescription = (EditText)findViewById(R.id.workDescription);
         endDate = (TextView)findViewById(R.id.endDate);
