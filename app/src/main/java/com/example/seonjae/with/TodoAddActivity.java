@@ -64,7 +64,6 @@ public class TodoAddActivity extends AppCompatActivity {
         projectInfo = new HashMap<String, String>();
         projectInfo.putAll(dataConn.getProjectInfo());
 
-
         ArrayAdapter<String> adapter = new  ArrayAdapter<String> (this , android.R.layout.simple_spinner_item, projectNameList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner = (Spinner)findViewById(R.id.spinner);
@@ -144,7 +143,6 @@ public class TodoAddActivity extends AppCompatActivity {
         endDate = (TextView)findViewById(R.id.endDate);
         priority = (SeekBar)findViewById(R.id.sbBar);
 
-
         Button selectEnddate = (Button)findViewById(R.id.selectEnddate);
         selectEnddate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -203,15 +201,15 @@ public class TodoAddActivity extends AppCompatActivity {
                       e.printStackTrace();
                   }
 
-                  try{
+                  try {
                       URL url2 = new URL("http://with7.cloudapp.net/workChargeAdd.php?projectID=" + t_projectID
                               +"&workerEmail=" + t_resiEmail + "&workID=" + t_workID + "&workName=" + t_workName
-                              + "&projectName=" +projectInfo.get(t_projectID) + "&endDay="+t_endDate);
+                              + "&projectName=" +projectInfo.get(t_projectID) + "&endDay="+t_endDate+ "&priority=" + t_priority);
                       url2.openStream();
 
                       Toast.makeText(TodoAddActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
                       finish();
-                  }catch (IOException e){
+                  } catch (IOException e){
                       e.printStackTrace();
                   }
               }
@@ -236,6 +234,8 @@ public class TodoAddActivity extends AppCompatActivity {
             updateDisplay();
         }
     };
+
+
 
     @Override
     protected Dialog onCreateDialog(int id)

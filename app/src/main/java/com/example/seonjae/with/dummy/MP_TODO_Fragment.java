@@ -36,8 +36,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class MP_TODO_Fragment extends Fragment {
 
@@ -46,6 +51,8 @@ public class MP_TODO_Fragment extends Fragment {
     private ListTodoAdapter tListAdapter = null;
     private ArrayList<TodoData> tDataList;
     private TodoData pData;
+    //static Map<String, Integer> projectProgress;
+    private Set<String> projectIDList;
 
     public MP_TODO_Fragment() {
         // Required empty public constructor
@@ -54,6 +61,7 @@ public class MP_TODO_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        projectIDList = new HashSet<String>();
         // Inflate the layout for this fragment
         tDataList = new ArrayList<TodoData>();
         view = inflater.inflate(R.layout.mp_todo_fragment, container, false);
@@ -87,6 +95,44 @@ public class MP_TODO_Fragment extends Fragment {
         });
 
         return view;
+    }
+
+    // 개인 진행도 구하는 함수
+    //( SUM(작업한일의중요도) /  SUM(일의 중요도) ) * 100
+    public void getProgressWorker(){
+        Log.d("---SJ P_ :", String.valueOf(tDataList.size()));
+        Iterator<String> itPL = projectIDList.iterator();
+        while(itPL.hasNext()){
+            String id = itPL.next();
+            double workCnt = 0;
+            double completeCnt = 0;
+            for(int i= 0; i<tDataList.size(); i++){
+                if(tDataList.get(i).getProjectID().equals(id)){
+                    workCnt++;
+                    if(tDataList.get(i).getComplete() != 0)
+                        completeCnt++;
+                }
+            }
+            double workPer = 1 / workCnt;
+            DecimalFormat format = new DecimalFormat(".##");
+            String t =  format.format(workPer);
+            workPer = Double.valueOf(t);
+            double remainder = 1 - (workPer * workCnt);
+            String r = format.format(remainder);
+            remainder = Double.valueOf(r);
+
+
+
+            Log.d("---SJ8_workPer" , id+" : " + String.valueOf(workCnt));
+            Log.d("---SJ8_Complete" , id+" : " + String.valueOf(completeCnt));
+//            Log.d("---SJ8_remainder", id+" : " + String.valueOf(remainder));
+//            for(int i = 0; i < workCnt; i++){
+//                Log.d("---SJ9_progress", id+" : " + String.valueOf(tDataList.get(i).getPriority()));
+//            }
+        }
+
+
+
     }
 
     private void getTodoList() {
@@ -134,15 +180,18 @@ public class MP_TODO_Fragment extends Fragment {
                     JSONArray jsonArray = new JSONArray(json);
                     for(int i = 0; i < jsonArray.length(); i++){
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        TodoData p = new TodoData(jsonObject.getString("workID"), jsonObject.getString("workName"),jsonObject.getString("projectName"), Date.valueOf(jsonObject.getString("endDay")));
+                        TodoData p = new TodoData(jsonObject.getString("projectID"), jsonObject.getString("workID"), jsonObject.getString("workName"),
+                                jsonObject.getString("projectName"), Date.valueOf(jsonObject.getString("endDay")),
+                                Integer.valueOf(jsonObject.getString("priority")), Integer.valueOf(jsonObject.getString("complete")));
                         tListAdapter.addTodo(p);
                         tListAdapter.notifyDataSetChanged();
+                        projectIDList.add(jsonObject.getString("projectID"));
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
+                getProgressWorker();
             }
 
         }
