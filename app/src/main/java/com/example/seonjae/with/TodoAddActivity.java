@@ -48,7 +48,7 @@ public class TodoAddActivity extends AppCompatActivity {
     private SeekBar priority;
     private DataConn dataConn;
     private Map<String,String> projectInfo;
-    private Spinner spinnerWorker;
+
     private String pID;
     private String pName;
     private ArrayAdapter<String> workerAdapter;
@@ -93,10 +93,6 @@ public class TodoAddActivity extends AppCompatActivity {
             checkBox.setText(key);
             workerLayout.addView(checkBox);
         }
-        workerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, workerList);
-        workerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerWorker = (Spinner)findViewById(R.id.spinnerWorker);
-        spinnerWorker.setAdapter(workerAdapter);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -124,28 +120,11 @@ public class TodoAddActivity extends AppCompatActivity {
                     workerLayout.addView(checkBox);
                 }
 
-                workerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinnerWorker = (Spinner)findViewById(R.id.spinnerWorker);
-                workerAdapter.notifyDataSetChanged();
-                spinnerWorker.setAdapter(workerAdapter);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 return;
-            }
-        });
-
-        spinnerWorker.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
