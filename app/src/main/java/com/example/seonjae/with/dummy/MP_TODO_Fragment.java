@@ -147,7 +147,7 @@ public class MP_TODO_Fragment extends Fragment {
 
             @Override
             protected String doInBackground(String... params) {
-                String t_email = "test@mail.com";
+                String t_email = "test@mail.com"; //master
 
                 InputStream is = null;
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();

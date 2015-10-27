@@ -268,7 +268,6 @@ public class PP_HOME_Fragment extends Fragment {
             @Override
             protected void onPostExecute(String result) {
                 String s = result.trim();
-                Log.d("--------------SJ11 :", s);
                 final String json = s.replaceAll("\"", "\\\"");
                 try{
                     JSONArray jsonArray = new JSONArray(json);

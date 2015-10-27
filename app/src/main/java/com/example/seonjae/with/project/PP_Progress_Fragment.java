@@ -62,6 +62,8 @@ public class PP_Progress_Fragment extends Fragment {
         progressAll = (ArcProgress)view.findViewById(R.id.progressAll);
         progressAll.setProgress(progressAllValue);
         updateProgressAll();
+
+        Log.d("--SJ ?", "1");
         return view;
     }
 

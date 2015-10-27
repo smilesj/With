@@ -1,14 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_marginTop="10dp">
 
-    <com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar
-        android:id="@+id/progressWorker"
+    <TextView
+        android:id="@+id/worker"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="5dp"/>
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+            android:id="@+id/progressWorker"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="0.9"
+            app:rcBackgroundPadding="5dp"
+            app:rcBackgroundColor="#D9E5FF"
+            app:rcProgressColor="#B5B2FF"
+            app:rcMax="100" />
+        <TextView
+            android:id="@+id/progressNum"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:textSize="12dp"
+            android:layout_weight="0.1"/>
+    </LinearLayout>
 
+    <!--<com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar-->
+        <!--android:id="@+id/progressWorker"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_marginTop="5dp"/>-->
 </LinearLayout>

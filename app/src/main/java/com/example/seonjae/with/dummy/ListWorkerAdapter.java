@@ -2,12 +2,15 @@ package com.example.seonjae.with.dummy;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar;
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.example.seonjae.with.R;
 import com.example.seonjae.with.data.WorkerData;
 import com.example.seonjae.with.project.PP_Progress_Fragment;
@@ -24,7 +27,9 @@ public class ListWorkerAdapter extends BaseAdapter {
     private WorkerData workerData;
     private ArrayList<WorkerData> WorkerList;
 
-    private IconRoundCornerProgressBar progressWorker;
+    private RoundCornerProgressBar progressWorker;
+    private TextView worker;
+    private TextView progressNum;
 
     public ListWorkerAdapter(Context context, ArrayList<WorkerData> WorkerList){
         super();
@@ -56,18 +61,26 @@ public class ListWorkerAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.workerlist_item, parent, false);
         }
 
-        progressWorker = (IconRoundCornerProgressBar)convertView.findViewById(R.id.progressWorker);
-        progressWorker.setIconSize(280);
+        progressWorker = (RoundCornerProgressBar)convertView.findViewById(R.id.progressWorker);
+        worker = (TextView)convertView.findViewById(R.id.worker);
+        progressNum = (TextView)convertView.findViewById(R.id.progressNum);
 
         workerData = getItem(position);
 
         if(workerData != null){
-            PP_Progress_Fragment.progressAllValue = WorkerList.get(position).getAllProgress();
-            progressWorker.setProgressColor(Color.parseColor("#56d2c2"));
-            progressWorker.setBackgroundColor(Color.parseColor("#757575"));
-            progressWorker.setMax(100);
-            progressWorker.setProgress(WorkerList.get(position).getWorkerProgress());
+            progressWorker.setProgress((float) WorkerList.get(position).getWorkerProgress());
+            worker.setText(workerData.getWorkerEmail());
+            progressNum.setText(String.valueOf((int) progressWorker.getProgress()) + "%");
         }
+
+//        if(workerData != null){
+//            PP_Progress_Fragment.progressAllValue = WorkerList.get(position).getAllProgress();
+//            progressWorker.setProgressColor(Color.parseColor("#56d2c2"));
+//            progressWorker.setBackgroundColor(Color.parseColor("#757575"));
+//            progressWorker.setMax(100);
+//            progressWorker.setProgress(WorkerList.get(position).getWorkerProgress());
+//        }
+
         return convertView;
     }
 
