@@ -53,6 +53,7 @@ public class TodoAddActivity extends AppCompatActivity {
     private String pName;
     private ArrayAdapter<String> workerAdapter;
     private ArrayList<String> workerList;
+    private LinearLayout workerLayout;
     static final int DATE_DIALOG_ID = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +83,7 @@ public class TodoAddActivity extends AppCompatActivity {
             }
         }
 
-        LinearLayout workerLayout = (LinearLayout)findViewById(R.id.workerLayout);
-
+        workerLayout = (LinearLayout)findViewById(R.id.workerLayout);
         workerList = new ArrayList<String>();
         Iterator<String> iterator = MP_Project_Fragment.team.get(pID).keySet().iterator();
         while(iterator.hasNext()){
@@ -114,10 +114,14 @@ public class TodoAddActivity extends AppCompatActivity {
                 }
 
                 workerList.clear();
+                workerLayout.removeAllViewsInLayout();
                 Iterator<String> iterator2 = MP_Project_Fragment.team.get(pID).keySet().iterator();
                 while(iterator2.hasNext()) {
                     String key = iterator2.next();
                     workerList.add(key);
+                    CheckBox checkBox = new CheckBox(getBaseContext());
+                    checkBox.setText(key);
+                    workerLayout.addView(checkBox);
                 }
 
                 workerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
