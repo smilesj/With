@@ -10,8 +10,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
@@ -80,11 +82,16 @@ public class TodoAddActivity extends AppCompatActivity {
             }
         }
 
+        LinearLayout workerLayout = (LinearLayout)findViewById(R.id.workerLayout);
+
         workerList = new ArrayList<String>();
         Iterator<String> iterator = MP_Project_Fragment.team.get(pID).keySet().iterator();
         while(iterator.hasNext()){
             String key = iterator.next();
             workerList.add(key);
+            CheckBox checkBox = new CheckBox(this);
+            checkBox.setText(key);
+            workerLayout.addView(checkBox);
         }
         workerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, workerList);
         workerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

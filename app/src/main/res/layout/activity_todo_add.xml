@@ -76,6 +76,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </Spinner>
+        <LinearLayout
+            android:id="@+id/workerLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnAddWork"
