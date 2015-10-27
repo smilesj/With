@@ -66,17 +66,13 @@ public class PP_Progress_Fragment extends Fragment {
     }
 
     private void getProgressAll(){
-        Log.d("---SJ P_ :", String.valueOf(workerDataList.size()));
         double workerCnt = workerDataList.size();
         double workerPer = 1 / workerCnt;
         double remainder = 1 - (workerPer * workerCnt);
         double tempValue = 0;
-        Log.d("---SJ8_workerPer" , String.valueOf(workerPer));
-        Log.d("---SJ8_remainder", String.valueOf(remainder));
+
         for(int i = 0; i < workerCnt; i++){
-            Log.d("---SJ8_progress", String.valueOf(workerDataList.get(i).getWorkerProgress()));
             tempValue += workerDataList.get(i).getWorkerProgress() * workerPer;
-            Log.d("---SJ8_tempValue", String.valueOf(tempValue));
         }
         progressAllValue =  (int)tempValue +(int)(remainder * 100) ;
         progressAll.setProgress(progressAllValue);
