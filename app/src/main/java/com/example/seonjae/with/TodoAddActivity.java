@@ -86,12 +86,15 @@ public class TodoAddActivity extends AppCompatActivity {
         workerLayout = (LinearLayout)findViewById(R.id.workerLayout);
         workerList = new ArrayList<String>();
         Iterator<String> iterator = MP_Project_Fragment.team.get(pID).keySet().iterator();
+        final CheckBox[] checkBox = new CheckBox[MP_Project_Fragment.team.size()];
+        int i = 0;
         while(iterator.hasNext()){
             String key = iterator.next();
             workerList.add(key);
-            CheckBox checkBox = new CheckBox(this);
-            checkBox.setText(key);
-            workerLayout.addView(checkBox);
+            i++;
+            checkBox[i] = new CheckBox(this);
+            checkBox[i].setText(key);
+            workerLayout.addView(checkBox[i]);
         }
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -111,15 +114,17 @@ public class TodoAddActivity extends AppCompatActivity {
 
                 workerList.clear();
                 workerLayout.removeAllViewsInLayout();
+                final CheckBox[] checkBox = new CheckBox[MP_Project_Fragment.team.size()];
+                int i = 0;
                 Iterator<String> iterator2 = MP_Project_Fragment.team.get(pID).keySet().iterator();
                 while(iterator2.hasNext()) {
                     String key = iterator2.next();
                     workerList.add(key);
-                    CheckBox checkBox = new CheckBox(getBaseContext());
-                    checkBox.setText(key);
-                    workerLayout.addView(checkBox);
+                    i++;
+                    checkBox[i] = new CheckBox(getBaseContext());
+                    checkBox[i].setText(key);
+                    workerLayout.addView(checkBox[i]);
                 }
-
             }
 
             @Override
@@ -224,8 +229,6 @@ public class TodoAddActivity extends AppCompatActivity {
             updateDisplay();
         }
     };
-
-
 
     @Override
     protected Dialog onCreateDialog(int id)
