@@ -2,6 +2,8 @@ package com.example.seonjae.with;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +26,10 @@ import android.widget.Toast;
 import com.example.seonjae.with.dummy.ListTodoAdapter;
 import com.example.seonjae.with.dummy.MP_Project_Fragment;
 import com.example.seonjae.with.dummy.MP_TODO_Fragment;
+import com.example.seonjae.with.gcm.RegistrationIntentService;
 import com.example.seonjae.with.project.ProjectHomeActivity;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -53,6 +58,9 @@ import java.util.List;
 import java.util.Map;
 
 public class TodoAddActivity extends AppCompatActivity {
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
+    private String token = "";
 
     private TextView endDate;
     private int mYear;
@@ -72,12 +80,14 @@ public class TodoAddActivity extends AppCompatActivity {
     private ArrayList<String> workerList;
     private LinearLayout workerLayout;
     private CheckBox[] checkBox;
-    static public Map<String, String> gcmWorkerList;
+    private Map<String, String> gcmWorkerList;
     static final int DATE_DIALOG_ID = 0;
+    private String t_workName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo_add);
+        registBroadcastReceiver();
 
         gcmWorkerList = new HashMap<String, String>();
         dataConn = new DataConn();
@@ -116,6 +126,7 @@ public class TodoAddActivity extends AppCompatActivity {
             checkBox[i].setText(key);
             workerLayout.addView(checkBox[i]);
         }
+        getWorkerRegID();
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -145,6 +156,8 @@ public class TodoAddActivity extends AppCompatActivity {
                     checkBox[i].setText(key);
                     workerLayout.addView(checkBox[i]);
                 }
+                gcmWorkerList.clear();
+                getWorkerRegID();
             }
 
             @Override
@@ -190,7 +203,7 @@ public class TodoAddActivity extends AppCompatActivity {
                           break;
                       }
                   }
-                  String t_workName = workName.getText().toString();
+                  t_workName = workName.getText().toString();
                   String t_workDescription = workDescription.getText().toString();
                   int t_priority = priority.getProgress();
                   Date date = new Date();
@@ -210,7 +223,6 @@ public class TodoAddActivity extends AppCompatActivity {
                               + "&workName=" + t_workName + "&workContents=" + t_workDescription + "&complete=0"
                               + "&priority=" + t_priority + "&startDay=" + t_startDate + "&endDay="+t_endDate+ "&resiEmail=" +t_resiEmail);
                       url.openStream();
-                      Log.d("---SJ7: ", url.toString());
 
                   }catch(IOException e){
                       e.printStackTrace();
@@ -223,7 +235,8 @@ public class TodoAddActivity extends AppCompatActivity {
                       url2.openStream();
 
                       Toast.makeText(TodoAddActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
-                      getWorkerRegID();
+                      getInstanceIdToken();
+                      sendGCMTodo();
                       finish();
                   } catch (IOException e){
                       e.printStackTrace();
@@ -273,6 +286,7 @@ public class TodoAddActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(String result) {
                 String s = result.trim();
+
                 final String json = s.replaceAll("\"", "\\\"");
                 try{
                     JSONArray jsonArray = new JSONArray(json);
@@ -318,4 +332,94 @@ public class TodoAddActivity extends AppCompatActivity {
         }
         return null;
     }
+    public void getInstanceIdToken() {
+        if (checkPlayServices()) {
+            // Start IntentService to register this application with GCM.
+            Intent intent = new Intent(this, RegistrationIntentService.class);
+            startService(intent);
+        }
+    }
+    public void registBroadcastReceiver(){
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+
+                if(action.equals("registrationComplete")){
+                    token = intent.getStringExtra("token");
+                }
+            }
+        };
+    }
+
+    private boolean checkPlayServices() {
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+                GooglePlayServicesUtil.getErrorDialog(resultCode, this, PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } else {
+                finish();
+            }
+            return false;
+        }
+        return true;
+    }
+
+    private void sendGCMTodo() {
+        class sendGCMTodoAsync extends AsyncTask<String, Void, String> {
+            @Override
+            protected String doInBackground(String... params) {
+
+                InputStream is = null;
+                String msg = "\""+t_workName+"\"가요청되었습니다.";
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                nameValuePairs.add(new BasicNameValuePair("regID", token));
+                nameValuePairs.add(new BasicNameValuePair("title", ProjectHomeActivity.itemProjectName));
+                nameValuePairs.add(new BasicNameValuePair("type", "RequestWork"));
+                nameValuePairs.add(new BasicNameValuePair("message", msg));
+                Iterator<String> iterator = gcmWorkerList.keySet().iterator();
+                Log.d("---SJ8:", "2.5 "+gcmWorkerList.size());
+                while(iterator.hasNext()){
+                    String key = iterator.next();
+                    String value = gcmWorkerList.get(key);
+                    nameValuePairs.add(new BasicNameValuePair("devices[]", value));
+                    Log.d("---SJ8:", "2");
+                }
+
+                String result = null;
+
+                try {
+                    HttpClient httpClient = new DefaultHttpClient();
+                    HttpPost httpPost = new HttpPost("http://with7.cloudapp.net/gcmSendMassage.php");
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf-8"));
+
+                    HttpResponse response = httpClient.execute(httpPost);
+                    HttpEntity entity = response.getEntity();
+
+                    is = entity.getContent();
+
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
+                    StringBuilder sb = new StringBuilder();
+
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    result = sb.toString();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return result;
+            }
+            @Override
+            protected void onPostExecute(String result) {
+                String s = result.trim();
+
+            }
+
+        }
+        sendGCMTodoAsync la = new sendGCMTodoAsync();
+        la.execute();
+    }
 }
+
