@@ -3,6 +3,7 @@ package com.example.seonjae.with;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,7 +26,22 @@ import com.example.seonjae.with.dummy.MP_Project_Fragment;
 import com.example.seonjae.with.dummy.MP_TODO_Fragment;
 import com.example.seonjae.with.project.ProjectHomeActivity;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,6 +49,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public class TodoAddActivity extends AppCompatActivity {
@@ -54,12 +71,15 @@ public class TodoAddActivity extends AppCompatActivity {
     private ArrayAdapter<String> workerAdapter;
     private ArrayList<String> workerList;
     private LinearLayout workerLayout;
+    private CheckBox[] checkBox;
+    static public Map<String, String> gcmWorkerList;
     static final int DATE_DIALOG_ID = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo_add);
 
+        gcmWorkerList = new HashMap<String, String>();
         dataConn = new DataConn();
         ArrayList<String> projectNameList = new ArrayList<String>();
         projectNameList.addAll(dataConn.getProjectNameList());
@@ -86,7 +106,7 @@ public class TodoAddActivity extends AppCompatActivity {
         workerLayout = (LinearLayout)findViewById(R.id.workerLayout);
         workerList = new ArrayList<String>();
         Iterator<String> iterator = MP_Project_Fragment.team.get(pID).keySet().iterator();
-        final CheckBox[] checkBox = new CheckBox[MP_Project_Fragment.team.size()];
+        checkBox = new CheckBox[MP_Project_Fragment.team.size()];
         int i = 0;
         while(iterator.hasNext()){
             String key = iterator.next();
@@ -114,7 +134,7 @@ public class TodoAddActivity extends AppCompatActivity {
 
                 workerList.clear();
                 workerLayout.removeAllViewsInLayout();
-                final CheckBox[] checkBox = new CheckBox[MP_Project_Fragment.team.size()];
+                checkBox = new CheckBox[MP_Project_Fragment.team.size()];
                 int i = 0;
                 Iterator<String> iterator2 = MP_Project_Fragment.team.get(pID).keySet().iterator();
                 while(iterator2.hasNext()) {
@@ -203,6 +223,7 @@ public class TodoAddActivity extends AppCompatActivity {
                       url2.openStream();
 
                       Toast.makeText(TodoAddActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
+                      getWorkerRegID();
                       finish();
                   } catch (IOException e){
                       e.printStackTrace();
@@ -210,6 +231,63 @@ public class TodoAddActivity extends AppCompatActivity {
               }
           }
         );
+    }
+
+    private void getWorkerRegID(){
+        class GetWorkerRegIDAsync extends AsyncTask<String, Void, String> {
+            @Override
+            protected String doInBackground(String... params) {
+
+                InputStream is = null;
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                nameValuePairs.add(new BasicNameValuePair("cnt", String.valueOf(workerList.size())));
+                for(String str : workerList){
+                    nameValuePairs.add(new BasicNameValuePair("workers[]", str));
+                }
+                String result = null;
+
+                try {
+                    HttpClient httpClient = new DefaultHttpClient();
+                    HttpPost httpPost = new HttpPost("http://with7.cloudapp.net/getWorkerRegID.php");
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf-8"));
+
+                    HttpResponse response = httpClient.execute(httpPost);
+                    HttpEntity entity = response.getEntity();
+
+                    is = entity.getContent();
+
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
+                    StringBuilder sb = new StringBuilder();
+
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    result = sb.toString();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return result;
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                String s = result.trim();
+                final String json = s.replaceAll("\"", "\\\"");
+                try{
+                    JSONArray jsonArray = new JSONArray(json);
+                    for(int i = 0; i < jsonArray.length(); i++){
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        gcmWorkerList.put(jsonObject.getString("workerEmail"), jsonObject.getString("workerRegID"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+        GetWorkerRegIDAsync la = new GetWorkerRegIDAsync();
+        la.execute();
     }
 
     private void updateDisplay() {
