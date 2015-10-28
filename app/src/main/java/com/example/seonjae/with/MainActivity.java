@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.seonjae.with.dummy.MP_Project_Fragment;
+import com.example.seonjae.with.dummy.MP_Request_Fragment;
 import com.example.seonjae.with.dummy.MP_TODO_Fragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -121,6 +122,9 @@ public class MainActivity extends AppCompatActivity {
             else if(position == 1){
                 return new MP_TODO_Fragment();
             }
+            else if(position == 2){
+                return new MP_Request_Fragment();
+            }
             else
                 return PlaceholderFragment.newInstance(position + 1);
         }
@@ -139,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                 case 1:
                     return "TODO List";
                 case 2:
-                    return "SECTION 3";
+                    return "Request List";
             }
             return null;
         }

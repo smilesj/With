@@ -241,7 +241,7 @@ public class TodoAddActivity extends AppCompatActivity {
                       for(int i = 0; i < workerList.size(); i++) {
                           URL url3 = new URL("http://with7.cloudapp.net/workRequestAdd.php?workID=" + t_workID
                                   + "&worker=" + workerList.get(i) + "&projectID=" + t_projectID + "&workName=" + t_workName
-                                  + "&projectName=" + projectInfo.get(t_projectID) + "&endDay=" + t_startDate + "&writer=" + t_resiEmail);
+                                  + "&projectName=" + projectInfo.get(t_projectID) + "&date=" + t_startDate + "&writer=" + t_resiEmail);
                           url3.openStream();
                       }
                       Toast.makeText(TodoAddActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
