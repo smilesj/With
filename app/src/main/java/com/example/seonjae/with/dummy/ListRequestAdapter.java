@@ -60,7 +60,7 @@ public class ListRequestAdapter extends BaseAdapter {
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.requestlist_item, parent, false);
         }
-        projectName = (TextView)convertView.findViewById(R.id.progressNum);
+        projectName = (TextView)convertView.findViewById(R.id.projectName);
         workName = (TextView)convertView.findViewById(R.id.workName);
         requestDate = (TextView)convertView.findViewById(R.id.requestDate);
         btnYes = (RadioButton)convertView.findViewById(R.id.btnYes);
@@ -76,10 +76,11 @@ public class ListRequestAdapter extends BaseAdapter {
         rData = getItem(position);
 
         if(rData != null){
-            //error
-            //projectName.setText(RequestList.get(position).getProjectName());
-            //workName.setText(RequestList.get(position).getWorkName());
-            //requestDate.setText(String.valueOf(RequestList.get(position).getRequestDate()));
+            projectName.setText(RequestList.get(position).getProjectName());
+
+            projectName.setText(RequestList.get(position).getProjectName());
+            workName.setText(RequestList.get(position).getWorkName());
+            requestDate.setText(String.valueOf(RequestList.get(position).getRequestDate()));
         }
         return convertView;
     }
