@@ -232,8 +232,19 @@ public class TodoAddActivity extends AppCompatActivity {
                               + "&projectName=" +projectInfo.get(t_projectID) + "&endDay="+t_endDate+ "&priority=" + t_priority);
                       url2.openStream();
 
-                      Toast.makeText(TodoAddActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
+                  } catch (IOException e){
+                      e.printStackTrace();
+                  }
 
+                  try {
+                      workerIsChecked();
+                      for(int i = 0; i < workerList.size(); i++) {
+                          URL url3 = new URL("http://with7.cloudapp.net/workRequestAdd.php?workID=" + t_workID
+                                  + "&worker=" + workerList.get(i) + "&projectID=" + t_projectID + "&workName=" + t_workName
+                                  + "&projectName=" + projectInfo.get(t_projectID) + "&endDay=" + t_startDate + "&writer=" + t_resiEmail);
+                          url3.openStream();
+                      }
+                      Toast.makeText(TodoAddActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
                       getInstanceIdToken();
                       sendGCMTodo();
                       finish();
@@ -256,8 +267,6 @@ public class TodoAddActivity extends AppCompatActivity {
             }
         }
     }
-
-
 
     private void updateDisplay() {
         endDate.setText(new StringBuilder()
