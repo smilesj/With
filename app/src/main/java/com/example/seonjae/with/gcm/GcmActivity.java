@@ -155,7 +155,7 @@ public class GcmActivity extends AppCompatActivity { // Activity {
                 nameValuePairs.add(new BasicNameValuePair("regid1", "ceNIF2ctscc:APA91bEB3udpLZrYdGXtuy5Z8R9TpFhjbsce-mE3ctt5845z0aemdPUzBe1mXXK9Pxe6CTaQmtACaq5R9j1Wg1nQxCjz3yNrBoOpQ0aq3dSKBghEZB5o8fqjP3gRHY2K2axmvKUM_cjo"));
                 nameValuePairs.add(new BasicNameValuePair("regid2", "cC-7KkGztpk:APA91bE3Wd4gRL6uF2mnBjFxMfKCySaNi3MYJxgy2AWOxgCrJsHPt9dGWR8Yne-yYaWfKrNjGB6NeHu5MWefC0c3aU-IAgh36T5RCisErhz9oJiwHcFeRCwlSCtoTt4HesFhsOXI9ZTR"));
                 nameValuePairs.add(new BasicNameValuePair("message", "hello message"));
-                nameValuePairs.add(new BasicNameValuePair("devices[]", "ceNIF2ctscc:APA91bEB3udpLZrYdGXtuy5Z8R9TpFhjbsce-mE3ctt5845z0aemdPUzBe1mXXK9Pxe6CTaQmtACaq5R9j1Wg1nQxCjz3yNrBoOpQ0aq3dSKBghEZB5o8fqjP3gRHY2K2axmvKUM_cjo"));
+                nameValuePairs.add(new BasicNameValuePair("devices[]", "ecdy75QNR7I:APA91bGXNATsrm30kg1_yqI7vwzmdGUA8124hEP-PH0yNL3XBqei8_wAxoLHC1RHvoTh2xAYdWA2NYS2td9NamPCgjBb3IO3ECW9FDYHyDfujWg3CAc_WjUxwq7VZQlzt1Cu47TtDFTY"));
                 nameValuePairs.add(new BasicNameValuePair("devices[]", "cC-7KkGztpk:APA91bE3Wd4gRL6uF2mnBjFxMfKCySaNi3MYJxgy2AWOxgCrJsHPt9dGWR8Yne-yYaWfKrNjGB6NeHu5MWefC0c3aU-IAgh36T5RCisErhz9oJiwHcFeRCwlSCtoTt4HesFhsOXI9ZTR"));
                 String result = null;
 
@@ -185,7 +185,7 @@ public class GcmActivity extends AppCompatActivity { // Activity {
             @Override
             protected void onPostExecute(String result) {
                 String s = result.trim();
-                Log.d("--------------SJ 5 :" , s);
+                Log.d("------------SJ token:" , token);
 //                final String json = s.replaceAll("\"", "\\\"");
 //                try{
 //                    JSONArray jsonArray = new JSONArray(json);
