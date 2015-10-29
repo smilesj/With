@@ -34,7 +34,6 @@
                 android:layout_weight="0.4"
                 android:gravity="right"
                 android:textSize="40px"
-
                 android:text="0000-00-00"/>
         </LinearLayout>
 

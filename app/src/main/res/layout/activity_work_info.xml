@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -12,59 +13,72 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="project name"/>
+            android:text="project name"
+            android:textSize="15dp"/>
         <TextView
             android:id="@+id/valueProjectName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="20dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="work name"/>
+            android:text="work name"
+            android:textSize="15dp"/>
         <TextView
             android:id="@+id/valueWorkName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="20dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="work description"/>
+            android:text="work description"
+            android:textSize="15dp"/>
         <TextView
             android:id="@+id/valueWorkDes"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="20dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="priority"/>
+            android:text="priority"
+            android:textSize="15dp"/>
         <TextView
             android:id="@+id/valueWorkPriority"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="20dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="start day"/>
+            android:text="start day"
+            android:textSize="15dp"/>
         <TextView
             android:id="@+id/valueStartDay"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="20dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="end day"/>
+            android:text="end day"
+            android:textSize="15dp"/>
         <TextView
             android:id="@+id/valueEndDay"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="20dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -77,34 +91,41 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="project name"/>
+            android:text="project name"
+            android:textSize="15dp"/>
         <TextView
             android:id="@+id/reProjectName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="20dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="work name"/>
+            android:text="work name"
+            android:textSize="15dp"/>
         <EditText
             android:id="@+id/reWorkName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="20dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="work description"/>
+            android:text="work description"
+            android:textSize="15dp"/>
         <EditText
             android:id="@+id/reWorkDes"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="20dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="priority"/>
+            android:text="priority"
+            android:textSize="15dp"/>
         <SeekBar
             android:id="@+id/rePriority"
             android:layout_width="match_parent"
@@ -115,36 +136,55 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="start day"/>
+            android:text="start day"
+            android:textSize="15dp"/>
         <TextView
             android:id="@+id/reStartDay"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="20dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="end day"/>
+            android:text="end day"
+            android:textSize="15dp"/>
         <TextView
             android:id="@+id/reEndDay"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <Button
+            android:layout_height="wrap_content"
+            android:textSize="20dp"/>
+        <info.hoang8f.widget.FButton
             android:id="@+id/btnEndDay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            fbutton:buttonColor="#FFB2D9"
+            fbutton:shadowColor="#F361A6"
+            fbutton:shadowEnabled="true"
+            fbutton:shadowHeight="5dp"
+            fbutton:cornerRadius="5dp"
             android:text="select End Date" />
 
-        <Button
+        <info.hoang8f.widget.FButton
             android:id="@+id/btnRewrite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            fbutton:buttonColor="#FFB2D9"
+            fbutton:shadowColor="#F361A6"
+            fbutton:shadowEnabled="true"
+            fbutton:shadowHeight="5dp"
+            fbutton:cornerRadius="5dp"
             android:text="Rewrite OK" />
 
-        <Button
+        <info.hoang8f.widget.FButton
             android:id="@+id/btnCancle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            fbutton:buttonColor="#FFB2D9"
+            fbutton:shadowColor="#F361A6"
+            fbutton:shadowEnabled="true"
+            fbutton:shadowHeight="5dp"
+            fbutton:cornerRadius="5dp"
             android:text="Rewrite Cancle" />
     </LinearLayout>
 

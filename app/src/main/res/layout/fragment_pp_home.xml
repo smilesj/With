@@ -4,6 +4,73 @@
     android:orientation="vertical" android:descendantFocusability="blocksDescendants"
     tools:context="com.example.seonjae.with.project.PP_HOME_Fragment">
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:weightSum="2"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginRight="65dp"
+            android:layout_marginLeft="10dp"
+            android:baselineAligned="false"
+            android:background="#f4f4f4">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Notice"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+                <ListView
+                    android:id="@+id/list_notice"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:scrollbars="vertical">
+                </ListView>
+            </ScrollView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="65dp"
+            android:layout_marginRight="65dp"
+            android:layout_marginLeft="10dp"
+            android:baselineAligned="false"
+            android:background="#f4f4f4">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Issue"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+                <ListView
+                    android:id="@+id/list_issue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </ListView>
+            </ScrollView>
+        </LinearLayout>
+    </LinearLayout>
+
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/multiple_actions"
         android:layout_width="wrap_content"
@@ -26,59 +93,6 @@
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:weightSum="2">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginRight="65dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Notice"/>
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true">
-                <ListView
-                    android:id="@+id/list_notice"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:focusable="false"
-                    android:clickable="true"
-                    android:scrollbars="vertical">
-                </ListView>
-            </ScrollView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginBottom="65dp"
-            android:layout_marginRight="65dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Issue"/>
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true">
-                <ListView
-                    android:id="@+id/list_issue"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </ListView>
-            </ScrollView>
-        </LinearLayout>
-    </LinearLayout>
     <!--<com.getbase.floatingactionbutton.FloatingActionButton-->
         <!--android:id="@+id/setter"-->
         <!--android:layout_width="wrap_content"-->
