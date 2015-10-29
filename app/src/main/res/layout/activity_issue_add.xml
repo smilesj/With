@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -11,7 +13,7 @@
     <android.support.design.widget.TextInputLayout android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <AutoCompleteTextView android:id="@+id/issueTitle" android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:hint="issue Title"
+            android:layout_height="wrap_content" android:hint="이슈 제목"
             android:inputType="text" android:maxLines="1"
             android:singleLine="true" />
     </android.support.design.widget.TextInputLayout>
@@ -19,14 +21,14 @@
     <android.support.design.widget.TextInputLayout android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <AutoCompleteTextView android:id="@+id/issueContents" android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:hint="issue Described"
+            android:layout_height="wrap_content" android:hint="설명"
             android:inputType="text" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <AutoCompleteTextView android:id="@+id/issueSolution" android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:hint="issue Solution"
+            android:layout_height="wrap_content" android:hint="해결법"
             android:inputType="text" />
     </android.support.design.widget.TextInputLayout>
 
@@ -35,17 +37,32 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="right">
-        <Button
+        <info.hoang8f.widget.FButton
             android:id="@+id/btnAddIssue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="add Issue"/>
+            android:layout_marginRight="5dp"
+            fbutton:buttonColor="#FFB2D9"
+            fbutton:shadowColor="#F361A6"
+            fbutton:shadowEnabled="true"
+            fbutton:shadowHeight="5dp"
+            fbutton:cornerRadius="5dp"
+            android:textStyle="bold"
+            android:textSize="14dp"
+            android:text="이슈추가하기"/>
 
-        <Button
+        <info.hoang8f.widget.FButton
             android:id="@+id/btnCancleIssue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="cancle"/>
+            fbutton:buttonColor="#C3C3C3"
+            fbutton:shadowColor="#9F9F9F"
+            fbutton:shadowEnabled="true"
+            fbutton:shadowHeight="5dp"
+            fbutton:cornerRadius="5dp"
+            android:textStyle="bold"
+            android:textSize="14dp"
+            android:text="취소"/>
     </LinearLayout>
 
 </LinearLayout>

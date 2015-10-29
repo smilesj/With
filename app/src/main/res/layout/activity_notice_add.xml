@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -11,7 +12,7 @@
     <android.support.design.widget.TextInputLayout android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <AutoCompleteTextView android:id="@+id/noticeTitle" android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:hint="notice Title"
+            android:layout_height="wrap_content" android:hint="공지제목"
             android:inputType="text" android:maxLines="1"
             android:singleLine="true" />
     </android.support.design.widget.TextInputLayout>
@@ -19,7 +20,7 @@
     <android.support.design.widget.TextInputLayout android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <AutoCompleteTextView android:id="@+id/noticeContents" android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:hint="notice Described"
+            android:layout_height="wrap_content" android:hint="설명"
             android:inputType="text" />
     </android.support.design.widget.TextInputLayout>
 
@@ -28,17 +29,32 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="right">
-    <Button
+    <info.hoang8f.widget.FButton
         android:id="@+id/btnAddNotice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="add Notice"/>
+        android:layout_marginRight="5dp"
+        fbutton:buttonColor="#FFB2D9"
+        fbutton:shadowColor="#F361A6"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="5dp"
+        fbutton:cornerRadius="5dp"
+        android:textStyle="bold"
+        android:textSize="14dp"
+        android:text="공지하기"  />
 
-    <Button
+    <info.hoang8f.widget.FButton
         android:id="@+id/btnCancleNotice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="cancle"/>
+        fbutton:buttonColor="#C3C3C3"
+        fbutton:shadowColor="#9F9F9F"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="5dp"
+        fbutton:cornerRadius="5dp"
+        android:textStyle="bold"
+        android:textSize="14dp"
+        android:text="취소"/>
     </LinearLayout>
 
 </LinearLayout>

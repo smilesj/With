@@ -102,7 +102,6 @@ public class ProjectAddActivity extends AppCompatActivity {
                 char ch1 = (char) ((Math.random() * 26) + 65);
                 char ch2 = (char) ((Math.random() * 26) + 65);
                 t_projectID = String.valueOf(ch1) + String.valueOf(ch2) + t_createDate.substring(0, 8); //문자2 + 오늘날짜 //AD20151008
-                Log.d("------------SJ2: ", t_projectID);
 
                 try{
                     URL url = new URL("http://with7.cloudapp.net/projectAdd.php?projectID=" + t_projectID

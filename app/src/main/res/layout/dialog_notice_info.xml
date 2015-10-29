@@ -6,6 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
         android:weightSum="5">
 
@@ -13,7 +14,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
-            android:text="Described"
+            android:text="설명"
             android:textSize="15sp"
             android:gravity="center"/>
 
@@ -29,6 +30,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="30dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
         android:weightSum="5">
 
@@ -36,7 +38,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.5"
-            android:text="Date"
+            android:text="작성일"
             android:textSize="15sp"
             android:gravity="center"/>
 
@@ -51,7 +53,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
         android:weightSum="5">
 
@@ -59,7 +62,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.5"
-            android:text="writer"
+            android:text="작성자"
             android:textSize="15sp"
             android:gravity="center"/>
 
