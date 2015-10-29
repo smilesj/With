@@ -3,9 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#e5d5ff"
     tools:context="com.example.seonjae.with.SplashActivity">
-    <ImageView
-        android:id="@+id/imageSplash"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <!--<ImageView-->
+        <!--android:id="@+id/imageSplash"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
+    <com.romainpiel.shimmer.ShimmerTextView
+        android:id="@+id/shimmer_tv"
+        android:text="WITH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#9254fd"
+        android:textSize="90sp"
+        android:textStyle="bold"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
