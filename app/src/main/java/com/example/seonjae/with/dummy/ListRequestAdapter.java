@@ -15,6 +15,8 @@ import com.example.seonjae.with.data.RequestData;
 
 import java.util.ArrayList;
 
+import info.hoang8f.widget.FButton;
+
 /**
  * Created by seonjae on 2015-10-29.
  */
@@ -30,7 +32,7 @@ public class ListRequestAdapter extends BaseAdapter {
     private TextView requestDate;
     private RadioButton btnYes;
     private RadioButton btnNo;
-    private Button btnSend;
+    private FButton btnSend;
     public ListRequestAdapter(Context context, ArrayList<RequestData> RequestList){
         super();
         this.context = context;
@@ -65,7 +67,7 @@ public class ListRequestAdapter extends BaseAdapter {
         requestDate = (TextView)convertView.findViewById(R.id.requestDate);
         btnYes = (RadioButton)convertView.findViewById(R.id.btnYes);
         btnNo = (RadioButton)convertView.findViewById(R.id.btnNo);
-        btnSend = (Button)convertView.findViewById(R.id.btnSend);
+        btnSend = (FButton)convertView.findViewById(R.id.btnSend);
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

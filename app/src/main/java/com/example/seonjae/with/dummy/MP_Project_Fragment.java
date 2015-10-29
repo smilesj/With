@@ -145,7 +145,7 @@ public class MP_Project_Fragment extends Fragment {
                     JSONArray jsonArray = new JSONArray(json);
                     for(int i = 0; i < jsonArray.length(); i++){
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        ProjectData p = new ProjectData(jsonObject.getString("projectID"), jsonObject.getString("projectName"));
+                        ProjectData p = new ProjectData(jsonObject.getString("projectID"), jsonObject.getString("projectName"), Integer.valueOf(jsonObject.getString("color")));
                         projectNameList.add(jsonObject.getString("projectName"));
                         projectInfo.put(jsonObject.getString("projectID"),jsonObject.getString("projectName"));
                         pListAdapter.addProject(p);

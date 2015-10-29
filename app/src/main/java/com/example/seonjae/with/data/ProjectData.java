@@ -9,10 +9,12 @@ import java.util.Map;
 public class ProjectData {
     private String projectID;
     private String projectName;
+    private int projectColor;
 
-    public ProjectData(String projectID, String projectName){
+    public ProjectData(String projectID, String projectName, int projectColor){
         this.projectID = projectID;
         this.projectName = projectName;
+        this.projectColor = projectColor;
     }
 
     public String getProjectID() { return projectID; }
@@ -25,5 +27,13 @@ public class ProjectData {
 
     public void setProjectName(String projectName){
         this.projectName = projectName;
+    }
+
+    public int getProjectColor() {
+        return projectColor;
+    }
+
+    public void setProjectColor(int projectColor) {
+        this.projectColor = projectColor;
     }
 }

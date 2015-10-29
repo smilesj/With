@@ -31,6 +31,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import info.hoang8f.widget.FButton;
+
 public class StartActivity extends AppCompatActivity {
 
     private EditText loginEmail;
@@ -51,7 +53,7 @@ public class StartActivity extends AppCompatActivity {
         loginEmail = (EditText)findViewById(R.id.loginEmail);
         loginPasswd = (EditText)findViewById(R.id.loginPasswd);
 
-        Button btnLogin = (Button)findViewById(R.id.loginButton);
+        FButton btnLogin = (FButton)findViewById(R.id.loginButton);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

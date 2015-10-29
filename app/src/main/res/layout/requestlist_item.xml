@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="60dp" android:weightSum="1" android:layout_marginTop="5dp"
     android:layout_marginRight="5dp" android:layout_marginLeft="5dp">
@@ -44,11 +45,16 @@
             android:layout_height="wrap_content"
             android:text="거절"/>
     </RadioGroup>
-    <Button
+    <info.hoang8f.widget.FButton
         android:id="@+id/btnSend"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="0.2"
+        fbutton:buttonColor="#FFB2D9"
+        fbutton:shadowColor="#F361A6"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="5dp"
+        fbutton:cornerRadius="5dp"
         android:text="보내기"/>
 
 </LinearLayout>
