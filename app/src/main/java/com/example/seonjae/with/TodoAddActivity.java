@@ -232,15 +232,15 @@ public class TodoAddActivity extends AppCompatActivity {
                       e.printStackTrace();
                   }
 
-                  try {
-                      URL url2 = new URL("http://with7.cloudapp.net/workChargeAdd.php?projectID=" + t_projectID
-                              +"&workerEmail=" + t_resiEmail + "&workID=" + t_workID + "&workName=" + t_workName
-                              + "&projectName=" +projectInfo.get(t_projectID) + "&endDay="+t_endDate+ "&priority=" + t_priority);
-                      url2.openStream();
-
-                  } catch (IOException e){
-                      e.printStackTrace();
-                  }
+//                  try {
+//                      URL url2 = new URL("http://with7.cloudapp.net/workChargeAdd.php?projectID=" + t_projectID
+//                              +"&workerEmail=" + t_resiEmail + "&workID=" + t_workID + "&workName=" + t_workName
+//                              + "&projectName=" +projectInfo.get(t_projectID) + "&endDay="+t_endDate+ "&priority=" + t_priority);
+//                      url2.openStream();
+//
+//                  } catch (IOException e){
+//                      e.printStackTrace();
+//                  }
 
                   try {
                       workerIsChecked();

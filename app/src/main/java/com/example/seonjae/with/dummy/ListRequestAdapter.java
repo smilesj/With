@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.seonjae.with.R;
@@ -53,11 +54,13 @@ public class ListRequestAdapter extends BaseAdapter {
     private TextView projectName;
     private TextView workName;
     private TextView requestDate;
+    private RadioGroup radioG;
     private RadioButton btnYes;
     private RadioButton btnNo;
     private FButton btnSend;
     private String currentWorkID;
     private String currentProjectName;
+    private int select = 0;
     public ListRequestAdapter(Context context, ArrayList<RequestData> RequestList){
         super();
         this.context = context;
@@ -90,6 +93,19 @@ public class ListRequestAdapter extends BaseAdapter {
         projectName = (TextView)convertView.findViewById(R.id.projectName);
         workName = (TextView)convertView.findViewById(R.id.workName);
         requestDate = (TextView)convertView.findViewById(R.id.requestDate);
+        radioG = (RadioGroup)convertView.findViewById(R.id.radioG);
+        radioG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                if(checkedId == btnYes.getId())
+                    select = 1;
+                else if(checkedId == btnNo.getId())
+                    select = 2;
+
+                Log.d("--SJ00: ", "  - " + select);
+            }
+        });
         btnYes = (RadioButton)convertView.findViewById(R.id.btnYes);
         btnNo = (RadioButton)convertView.findViewById(R.id.btnNo);
         btnSend = (FButton)convertView.findViewById(R.id.btnSend);
@@ -98,11 +114,7 @@ public class ListRequestAdapter extends BaseAdapter {
             public void onClick(View v) {
                 currentWorkID = RequestList.get(position).getWorkID();
                 currentProjectName = RequestList.get(position).getProjectName();
-                if(btnYes.isChecked()){
-                    requestFunc(1);
-                }else if(btnNo.isChecked()){
-                    requestFunc(2);
-                }
+                requestFunc();
             }
         });
 
@@ -119,12 +131,12 @@ public class ListRequestAdapter extends BaseAdapter {
     }
 
     //<work>, <workCharge> ADD, <request> Delete
-    private void requestFunc(final int select){
-
+    private void requestFunc(){
+        Log.d("--SJ_select: ", ""+select);
         class RequestWorkAddAsync extends AsyncTask<String, Void, String> {
             @Override
             protected String doInBackground(String... params) {
-
+                Log.d("--SJ_2: ", "YES");
                 InputStream is = null;
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
                 nameValuePairs.add(new BasicNameValuePair("workID", currentWorkID));
@@ -183,7 +195,7 @@ public class ListRequestAdapter extends BaseAdapter {
         class RequestWorkDeleteAsync extends AsyncTask<String, Void, String> {
             @Override
             protected String doInBackground(String... params) {
-                String t_email = "hello@mail.com";
+                String t_email = StartActivity.user_email;
 
                 InputStream is = null;
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
@@ -220,6 +232,7 @@ public class ListRequestAdapter extends BaseAdapter {
                 Log.d("--------------SJ17 :", s);
                 final String json = s.replaceAll("\"", "\\\"");
                 if(select == 1){
+                    Log.d("--SJ1_1: ", "YES");
                     RequestWorkAddAsync la = new RequestWorkAddAsync();
                     la.execute();
                 }
