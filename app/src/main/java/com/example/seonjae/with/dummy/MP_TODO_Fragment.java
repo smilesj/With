@@ -97,7 +97,7 @@ public class MP_TODO_Fragment extends Fragment {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
-        updateProgressWorker();
+
         return view;
     }
 
@@ -140,10 +140,62 @@ public class MP_TODO_Fragment extends Fragment {
             completePriority += (int)(remainder * workPer);
             progress = (int)((completePriority/1) * 100);
             projectProgress.put(id, progress);
+            Log.d("--SJ7:" , id+" "+progress);
         }
     }
 
     private void getTodoList() {
+
+        class UpdateProgressWorkerAsync extends AsyncTask<String, Void, String> {
+            @Override
+            protected String doInBackground(String... params) {
+
+                InputStream is = null;
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                nameValuePairs.add(new BasicNameValuePair("cnt", String.valueOf(projectProgress.size())));
+                nameValuePairs.add(new BasicNameValuePair("user",StartActivity.user_email));
+                Iterator<String> iterator = projectProgress.keySet().iterator();
+                while(iterator.hasNext()){
+                    String key = iterator.next();
+                    int value = projectProgress.get(key);
+                    nameValuePairs.add(new BasicNameValuePair("projectIDs[]", key));
+                    nameValuePairs.add(new BasicNameValuePair("prioritys[]", String.valueOf(value)));
+                }
+                String result = null;
+
+                try {
+                    HttpClient httpClient = new DefaultHttpClient();
+                    HttpPost httpPost = new HttpPost("http://with7.cloudapp.net/updateProgressWorker.php");
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf-8"));
+
+                    HttpResponse response = httpClient.execute(httpPost);
+                    HttpEntity entity = response.getEntity();
+
+                    is = entity.getContent();
+
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
+                    StringBuilder sb = new StringBuilder();
+
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    result = sb.toString();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return result;
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                String s = result.trim();
+                final String json = s.replaceAll("\"", "\\\"");
+                Log.d("---SJ10 :", s);
+            }
+
+        }
+
         class GetTodoListAsync extends AsyncTask<String, Void, String> {
 
             @Override
@@ -199,64 +251,12 @@ public class MP_TODO_Fragment extends Fragment {
                     e.printStackTrace();
                 }
                 getProgressWorker();
+                UpdateProgressWorkerAsync lp = new UpdateProgressWorkerAsync();
+                lp.execute();
             }
 
         }
         GetTodoListAsync la = new GetTodoListAsync();
-        la.execute();
-    }
-
-    private void updateProgressWorker(){
-        class UpdateProgressWorkerAsync extends AsyncTask<String, Void, String> {
-            @Override
-            protected String doInBackground(String... params) {
-
-                InputStream is = null;
-                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-                nameValuePairs.add(new BasicNameValuePair("cnt", String.valueOf(projectProgress.size())));
-                nameValuePairs.add(new BasicNameValuePair("user",StartActivity.user_email));
-                Iterator<String> iterator = projectProgress.keySet().iterator();
-                while(iterator.hasNext()){
-                    String key = iterator.next();
-                    int value = projectProgress.get(key);
-                    nameValuePairs.add(new BasicNameValuePair("projectIDs[]", key));
-                    nameValuePairs.add(new BasicNameValuePair("prioritys[]", String.valueOf(value)));
-                }
-                String result = null;
-
-                try {
-                    HttpClient httpClient = new DefaultHttpClient();
-                    HttpPost httpPost = new HttpPost("http://with7.cloudapp.net/updateProgressWorker.php");
-                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf-8"));
-
-                    HttpResponse response = httpClient.execute(httpPost);
-                    HttpEntity entity = response.getEntity();
-
-                    is = entity.getContent();
-
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
-                    StringBuilder sb = new StringBuilder();
-
-                    String line = null;
-                    while ((line = reader.readLine()) != null) {
-                        sb.append(line + "\n");
-                    }
-                    result = sb.toString();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                return result;
-            }
-
-            @Override
-            protected void onPostExecute(String result) {
-                String s = result.trim();
-                final String json = s.replaceAll("\"", "\\\"");
-                Log.d("---SJ10 :", "--> " + s);
-            }
-
-        }
-        UpdateProgressWorkerAsync la = new UpdateProgressWorkerAsync();
         la.execute();
     }
 }

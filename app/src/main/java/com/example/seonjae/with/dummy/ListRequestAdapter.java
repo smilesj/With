@@ -61,7 +61,7 @@ public class ListRequestAdapter extends BaseAdapter {
     private FButton btnSend;
     private String currentWorkID;
     private String currentProjectName;
-    private int select = 0;
+    private int select = 1;
     public ListRequestAdapter(Context context, ArrayList<RequestData> RequestList){
         super();
         this.context = context;

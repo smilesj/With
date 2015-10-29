@@ -77,6 +77,7 @@ public class PP_Progress_Fragment extends Fragment {
         }
         progressAllValue =  (int)tempValue +(int)(remainder * 100) ;
         progressAll.setProgress(progressAllValue);
+
     }
 
     private void updateProgressAll(){
