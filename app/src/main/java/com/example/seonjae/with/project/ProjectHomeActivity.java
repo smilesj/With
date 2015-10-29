@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -112,6 +113,18 @@ public class ProjectHomeActivity extends AppCompatActivity {
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            super.destroyItem(container, position, object);
+            if(object instanceof Fragment){
+                Fragment fragment    = (Fragment)object;
+                FragmentManager fm    = fragment.getFragmentManager();
+                FragmentTransaction ft    = fm.beginTransaction();
+                ft.remove(fragment);
+                ft.commit();
+            }
         }
 
         @Override

@@ -214,7 +214,7 @@ public class MP_TODO_Fragment extends Fragment {
                 InputStream is = null;
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
                 nameValuePairs.add(new BasicNameValuePair("cnt", String.valueOf(projectProgress.size())));
-                nameValuePairs.add(new BasicNameValuePair("user", StartActivity.user_email));
+                nameValuePairs.add(new BasicNameValuePair("user",StartActivity.user_email));
                 Iterator<String> iterator = projectProgress.keySet().iterator();
                 while(iterator.hasNext()){
                     String key = iterator.next();
