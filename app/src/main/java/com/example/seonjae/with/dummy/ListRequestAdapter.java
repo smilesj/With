@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.seonjae.with.R;
 import com.example.seonjae.with.StartActivity;
@@ -115,6 +116,7 @@ public class ListRequestAdapter extends BaseAdapter {
                 currentWorkID = RequestList.get(position).getWorkID();
                 currentProjectName = RequestList.get(position).getProjectName();
                 requestFunc();
+                Toast.makeText(context.getApplicationContext(), "확인하였습니다.", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -132,11 +134,11 @@ public class ListRequestAdapter extends BaseAdapter {
 
     //<work>, <workCharge> ADD, <request> Delete
     private void requestFunc(){
-        Log.d("--SJ_select: ", ""+select);
+
         class RequestWorkAddAsync extends AsyncTask<String, Void, String> {
             @Override
             protected String doInBackground(String... params) {
-                Log.d("--SJ_2: ", "YES");
+
                 InputStream is = null;
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
                 nameValuePairs.add(new BasicNameValuePair("workID", currentWorkID));
@@ -169,7 +171,7 @@ public class ListRequestAdapter extends BaseAdapter {
             protected void onPostExecute(String result) {
                 String t_resiEmail = StartActivity.user_email;
                 String s = result.trim();
-                Log.d("--------------SJ0:", s);
+
                 final String json = s.replaceAll("\"", "\\\"");
                 try{
                     JSONArray jsonArray = new JSONArray(json);
@@ -229,10 +231,8 @@ public class ListRequestAdapter extends BaseAdapter {
             @Override
             protected void onPostExecute(String result) {
                 String s = result.trim();
-                Log.d("--------------SJ17 :", s);
                 final String json = s.replaceAll("\"", "\\\"");
                 if(select == 1){
-                    Log.d("--SJ1_1: ", "YES");
                     RequestWorkAddAsync la = new RequestWorkAddAsync();
                     la.execute();
                 }

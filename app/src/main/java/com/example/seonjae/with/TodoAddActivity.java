@@ -364,7 +364,7 @@ public class TodoAddActivity extends AppCompatActivity {
                 while(iterator.hasNext()){
                     String key = iterator.next();
                     String value = gcmWorkerList.get(key);
-                    if(!value.equals(StartActivity.user_email))
+                    if(!key.equals(StartActivity.user_email))
                         nameValuePairs.add(new BasicNameValuePair("devices[]", value));
                 }
 

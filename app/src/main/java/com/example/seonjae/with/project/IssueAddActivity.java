@@ -195,7 +195,7 @@ public class IssueAddActivity extends AppCompatActivity {
                 while(iterator.hasNext()){
                     String key = iterator.next();
                     String value = ProjectHomeActivity.itemProjectWorker.get(key);
-                    if(!value.equals(StartActivity.user_email))
+                    if(!key.equals(StartActivity.user_email))
                         nameValuePairs.add(new BasicNameValuePair("devices[]", value));
                 }
 
