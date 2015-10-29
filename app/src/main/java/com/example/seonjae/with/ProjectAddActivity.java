@@ -23,8 +23,8 @@ import info.hoang8f.widget.FButton;
 
 public class ProjectAddActivity extends AppCompatActivity {
 
-    private AutoCompleteTextView projectName;
-    private AutoCompleteTextView projectDescribe;
+    private EditText projectName;
+    private EditText projectDescribe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +35,8 @@ public class ProjectAddActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        projectName = (AutoCompleteTextView)findViewById(R.id.projectName);
-        projectDescribe = (AutoCompleteTextView)findViewById(R.id.projectDescribe);
+        projectName = (EditText)findViewById(R.id.projectName);
+        projectDescribe = (EditText)findViewById(R.id.projectDescribe);
 
         FButton btnCProject = (FButton)findViewById(R.id.btnCProject);
         btnCProject.setOnClickListener(new View.OnClickListener() {

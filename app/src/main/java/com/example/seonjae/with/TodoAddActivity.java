@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import com.example.seonjae.with.project.ProjectHomeActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
+import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -73,7 +75,7 @@ public class TodoAddActivity extends AppCompatActivity {
     private Spinner spinner;
     private EditText workName;
     private EditText workDescription;
-    private SeekBar priority;
+    private DiscreteSeekBar priority;
     private DataConn dataConn;
     private Map<String,String> projectInfo;
 
@@ -126,6 +128,7 @@ public class TodoAddActivity extends AppCompatActivity {
             String key = iterator.next();
             i++;
             checkBox[i] = new CheckBox(this);
+            checkBox[i].setTextColor(Color.DKGRAY);
             checkBox[i].setText(key);
             workerLayout.addView(checkBox[i]);
         }
@@ -155,6 +158,7 @@ public class TodoAddActivity extends AppCompatActivity {
                     String key = iterator2.next();
                     i++;
                     checkBox[i] = new CheckBox(getBaseContext());
+                    checkBox[i].setTextColor(Color.DKGRAY);
                     checkBox[i].setText(key);
                     workerLayout.addView(checkBox[i]);
                 }
@@ -169,7 +173,7 @@ public class TodoAddActivity extends AppCompatActivity {
         workName = (EditText) findViewById(R.id.workName);
         workDescription = (EditText)findViewById(R.id.workDescription);
         endDate = (TextView)findViewById(R.id.endDate);
-        priority = (SeekBar)findViewById(R.id.sbBar);
+        priority = (DiscreteSeekBar)findViewById(R.id.sbBar);
 
         Button selectEnddate = (Button)findViewById(R.id.selectEnddate);
         selectEnddate.setOnClickListener(new View.OnClickListener() {
