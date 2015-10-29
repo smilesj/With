@@ -1,6 +1,7 @@
 package com.example.seonjae.with;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -10,14 +11,34 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.seonjae.with.data.NoticeData;
+import com.example.seonjae.with.dummy.ListSearchAdapter;
 import com.example.seonjae.with.dummy.MP_TODO_Fragment;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import info.hoang8f.widget.FButton;
 
@@ -26,10 +47,23 @@ public class ProjectAddActivity extends AppCompatActivity {
     private EditText projectName;
     private EditText projectDescribe;
 
+    private EditText searchEmail;
+    private FButton btnSearch;
+    private String t_email;
+
+    private ListView searchListView = null;
+    private ArrayList<String> searchDataList;
+    private ListSearchAdapter searchListAdapter = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_add);
+
+        searchDataList = new ArrayList<String>();
+        searchListView = (ListView)findViewById(R.id.searchList);
+        searchListAdapter = new ListSearchAdapter(getBaseContext(), searchDataList);
+        searchListView.setAdapter(searchListAdapter);
 
         //뒤로가기 버튼 보이기
         ActionBar actionBar = getSupportActionBar();
@@ -37,6 +71,17 @@ public class ProjectAddActivity extends AppCompatActivity {
 
         projectName = (EditText)findViewById(R.id.projectName);
         projectDescribe = (EditText)findViewById(R.id.projectDescribe);
+        searchEmail = (EditText)findViewById(R.id.workerSearch);
+
+        btnSearch = (FButton)findViewById(R.id.btnSearch);
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("--SJ1:","Click!");
+                t_email = searchEmail.getText().toString();
+                searchEmailData();
+            }
+        });
 
         FButton btnCProject = (FButton)findViewById(R.id.btnCProject);
         btnCProject.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +130,54 @@ public class ProjectAddActivity extends AppCompatActivity {
 
     }
 
+    private void searchEmailData(){
+        class SearchEmailAsync extends AsyncTask<String, Void, String> {
+            @Override
+            protected String doInBackground(String... params) {
+                InputStream is = null;
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                nameValuePairs.add(new BasicNameValuePair("email", t_email));
+                String result = null;
+
+                try {
+                    HttpClient httpClient = new DefaultHttpClient();
+                    HttpPost httpPost = new HttpPost("http://with7.cloudapp.net/searchEmail.php");
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf-8"));
+
+                    HttpResponse response = httpClient.execute(httpPost);
+                    HttpEntity entity = response.getEntity();
+
+                    is = entity.getContent();
+
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
+                    StringBuilder sb = new StringBuilder();
+
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    result = sb.toString();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return result;
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                String s = result.trim();
+                Log.d("--SJ0 :", s);
+                if(s.equals("1")){
+                    searchDataList.add(t_email);
+                }
+            }
+
+        }
+
+        SearchEmailAsync lw = new SearchEmailAsync();
+        lw.execute();
+
+    }
     // 뒤로가기 버튼 이벤트처리
     @Override
     public boolean onSupportNavigateUp() {

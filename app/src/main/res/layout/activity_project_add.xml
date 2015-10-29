@@ -34,6 +34,45 @@
                 android:singleLine="true" />
         </android.support.design.widget.TextInputLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:text="팀원추가"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8">
+                <AutoCompleteTextView android:id="@+id/workerSearch" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:hint="example@mail.com"
+                    android:inputType="text" android:maxLines="1"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+            <info.hoang8f.widget.FButton
+                android:id="@+id/btnSearch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                fbutton:buttonColor="#C3C3C3"
+                fbutton:shadowColor="#9F9F9F"
+                fbutton:shadowEnabled="true"
+                fbutton:shadowHeight="5dp"
+                fbutton:cornerRadius="5dp"
+                android:textStyle="bold"
+                android:text="찾기"/>
+        </LinearLayout>
+        <ListView
+            android:id="@+id/searchList"
+            android:layout_width="match_parent"
+            android:layout_height="210dp"></ListView>
+
         <info.hoang8f.widget.FButton
             android:id="@+id/btnCProject"
             android:layout_width="match_parent"
