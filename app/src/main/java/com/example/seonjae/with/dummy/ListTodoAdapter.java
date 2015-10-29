@@ -1,10 +1,13 @@
 package com.example.seonjae.with.dummy;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.seonjae.with.R;
@@ -20,6 +23,7 @@ public class ListTodoAdapter extends BaseAdapter {
     private Context context;
     private TodoData tData;
 
+    private LinearLayout projectColor;
     private TextView todoName;
     private TextView projectName;
     private TextView endday;
@@ -54,12 +58,19 @@ public class ListTodoAdapter extends BaseAdapter {
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.todolist_item, parent, false);
         }
+        projectColor = (LinearLayout)convertView.findViewById(R.id.projectColor);
         todoName = (TextView)convertView.findViewById(R.id.todoName);
         projectName = (TextView)convertView.findViewById(R.id.projectName);
         endday = (TextView)convertView.findViewById(R.id.endDay);
         tData = getItem(position);
 
         if(tData != null){
+            if( (position%2) == 0)
+                projectColor.setBackgroundColor(Color.rgb(232, 217, 255));
+                //projectColor.setBackgroundColor(Color.rgb(209, 178, 255));
+            else
+                projectColor.setBackgroundColor(Color.rgb(255, 217, 236));
+                //projectColor.setBackgroundColor(Color.rgb(255, 178, 217));
             todoName.setText(TodoList.get(position).getTodoName());
             projectName.setText(TodoList.get(position).getProjectName());
             endday.setText(TodoList.get(position).getEndDay().toString());

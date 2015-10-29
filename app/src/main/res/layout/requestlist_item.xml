@@ -2,59 +2,87 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fbutton="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="60dp" android:weightSum="1" android:layout_marginTop="5dp"
+    android:layout_height="75dp" android:weightSum="1" android:layout_marginTop="5dp"
     android:layout_marginRight="5dp" android:layout_marginLeft="5dp">
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:id="@+id/projectColor"
+        android:background="#E8D9FF"
+        android:layout_width="match_parent"
         android:layout_height="fill_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal"
         android:weightSum="1"
-        android:layout_weight="0.6"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/projectName"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.3"/>
-        <TextView
-            android:id="@+id/workName"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.4"/>
-        <TextView
-            android:id="@+id/requestDate"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.2" />
+        >
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:weightSum="1"
+                android:layout_weight="0.6"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+                    <TextView
+                        android:id="@+id/projectName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="15dp"
+                        android:text="project"/>
+                    <TextView
+                        android:id="@+id/requestDate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="right"
+                        android:textSize="12dp"
+                        android:text="0000-00-00"/>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/workName"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="0.4"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="Work Name"/>
+            </LinearLayout>
+            <RadioGroup
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:layout_gravity="center_horizontal">
+                <RadioButton
+                    android:id="@+id/btnYes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="수락"
+                    android:checked="true" />
+                <RadioButton
+                    android:id="@+id/btnNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="거절"/>
+            </RadioGroup>
+            <info.hoang8f.widget.FButton
+                android:id="@+id/btnSend"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.2"
+                android:layout_margin="3dp"
+                fbutton:buttonColor="#FFB2D9"
+                fbutton:shadowColor="#F361A6"
+                fbutton:shadowEnabled="true"
+                fbutton:shadowHeight="5dp"
+                fbutton:cornerRadius="5dp"
+                android:text="보내기"/>
     </LinearLayout>
-    <RadioGroup
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.2"
-        android:layout_gravity="center_horizontal">
-        <RadioButton
-            android:id="@+id/btnYes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="수락"
-            android:checked="true" />
-        <RadioButton
-            android:id="@+id/btnNo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="거절"/>
-    </RadioGroup>
-    <info.hoang8f.widget.FButton
-        android:id="@+id/btnSend"
-        android:layout_width="0dp"
-        android:layout_height="fill_parent"
-        android:layout_weight="0.2"
-        fbutton:buttonColor="#FFB2D9"
-        fbutton:shadowColor="#F361A6"
-        fbutton:shadowEnabled="true"
-        fbutton:shadowHeight="5dp"
-        fbutton:cornerRadius="5dp"
-        android:text="보내기"/>
-
 </LinearLayout>
