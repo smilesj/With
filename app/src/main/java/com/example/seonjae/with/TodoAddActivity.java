@@ -58,6 +58,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
+import info.hoang8f.widget.FButton;
+
 public class TodoAddActivity extends AppCompatActivity {
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private BroadcastReceiver mRegistrationBroadcastReceiver;
@@ -186,7 +188,7 @@ public class TodoAddActivity extends AppCompatActivity {
 
         updateDisplay();
 
-        Button btnAddWork = (Button)findViewById(R.id.btnAddWork);
+        FButton btnAddWork = (FButton)findViewById(R.id.btnAddWork);
         btnAddWork.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {

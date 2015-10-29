@@ -1,11 +1,13 @@
 package com.example.seonjae.with;
 
 import android.content.Intent;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,10 +19,12 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import info.hoang8f.widget.FButton;
+
 public class ProjectAddActivity extends AppCompatActivity {
 
-    private EditText projectName;
-    private EditText projectDescribe;
+    private AutoCompleteTextView projectName;
+    private AutoCompleteTextView projectDescribe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +35,10 @@ public class ProjectAddActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        projectName = (EditText)findViewById(R.id.projectName);
-        projectDescribe = (EditText)findViewById(R.id.projectDescribe);
+        projectName = (AutoCompleteTextView)findViewById(R.id.projectName);
+        projectDescribe = (AutoCompleteTextView)findViewById(R.id.projectDescribe);
 
-        Button btnCProject = (Button)findViewById(R.id.btnCProject);
+        FButton btnCProject = (FButton)findViewById(R.id.btnCProject);
         btnCProject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
