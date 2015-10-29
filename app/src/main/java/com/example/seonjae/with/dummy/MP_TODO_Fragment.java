@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.seonjae.with.R;
+import com.example.seonjae.with.StartActivity;
 import com.example.seonjae.with.TodoAddActivity;
 import com.example.seonjae.with.WorkInfoActivity;
 import com.example.seonjae.with.data.ProjectData;
@@ -147,7 +148,7 @@ public class MP_TODO_Fragment extends Fragment {
 
             @Override
             protected String doInBackground(String... params) {
-                String t_email = "test@mail.com"; //master
+                String t_email = StartActivity.user_email; //master
 
                 InputStream is = null;
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
@@ -213,7 +214,7 @@ public class MP_TODO_Fragment extends Fragment {
                 InputStream is = null;
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
                 nameValuePairs.add(new BasicNameValuePair("cnt", String.valueOf(projectProgress.size())));
-                nameValuePairs.add(new BasicNameValuePair("user", "test@mail.com"));
+                nameValuePairs.add(new BasicNameValuePair("user", StartActivity.user_email));
                 Iterator<String> iterator = projectProgress.keySet().iterator();
                 while(iterator.hasNext()){
                     String key = iterator.next();

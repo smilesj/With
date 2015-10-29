@@ -40,6 +40,7 @@ public class StartActivity extends AppCompatActivity {
 
     String email;
     String password;
+    static public String user_email = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,7 +130,7 @@ public class StartActivity extends AppCompatActivity {
 //                    intent.putExtra(USER_NAME, username);
 //                    finish();
 //                    startActivity(intent);
-
+                    user_email = email;
                     Toast.makeText(getApplicationContext(), "로그인 성공!", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(StartActivity.this, MainActivity.class);
                     //intent.putExtra("userEmail", email);

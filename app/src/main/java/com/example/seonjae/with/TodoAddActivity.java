@@ -214,7 +214,7 @@ public class TodoAddActivity extends AppCompatActivity {
                   SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
                   String t_startDate = sdf.format(date);
                   String t_endDate = endDate.getText().toString();
-                  String t_resiEmail = "test@mail.com"; //수정하기
+                  String t_resiEmail = StartActivity.user_email; //수정하기
 
                   char ch1 = (char) ((Math.random() * 26) + 65);
                   char ch2 = (char) ((Math.random() * 26) + 65);

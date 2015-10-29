@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.seonjae.with.R;
+import com.example.seonjae.with.StartActivity;
 import com.example.seonjae.with.data.WorkerData;
 import com.example.seonjae.with.gcm.RegistrationIntentService;
 import com.google.android.gms.common.ConnectionResult;
@@ -73,7 +74,7 @@ public class NoticeAddActivity extends AppCompatActivity {
                 Date date = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");
                 t_noticeDate = sdf.format(date);
-                t_writer = "test@mail.com";
+                t_writer = StartActivity.user_email;
                 addNotice();
             }
         });

@@ -49,7 +49,7 @@ public class ProjectAddActivity extends AppCompatActivity {
                 Date date = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");
                 String t_createDate = sdf.format(date);
-                String t_readerEmail = "test@mail.com";            //수정하기
+                String t_readerEmail = StartActivity.user_email;            //수정하기
                 String t_color = null;                  //수정하기
 
 

@@ -138,7 +138,7 @@ public class ProjectHomeActivity extends AppCompatActivity {
                 case 0:
                     return "HOME";
                 case 1:
-                    return "Progress";
+                    return "진행도";
 //                case 2:
 //                    return "History";
             }

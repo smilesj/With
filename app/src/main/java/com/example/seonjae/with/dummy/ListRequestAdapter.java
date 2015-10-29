@@ -2,6 +2,8 @@ package com.example.seonjae.with.dummy;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +15,27 @@ import android.widget.TextView;
 import com.example.seonjae.with.R;
 import com.example.seonjae.with.data.RequestData;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import info.hoang8f.widget.FButton;
 
@@ -33,6 +55,8 @@ public class ListRequestAdapter extends BaseAdapter {
     private RadioButton btnYes;
     private RadioButton btnNo;
     private FButton btnSend;
+    private String currentWorkID;
+    private String currentProjectName;
     public ListRequestAdapter(Context context, ArrayList<RequestData> RequestList){
         super();
         this.context = context;
@@ -55,7 +79,7 @@ public class ListRequestAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = null;
 
         if(convertView == null){
@@ -71,7 +95,13 @@ public class ListRequestAdapter extends BaseAdapter {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                currentWorkID = RequestList.get(position).getWorkID();
+                currentProjectName = RequestList.get(position).getProjectName();
+                if(btnYes.isChecked()){
+                    requestFunc(1);
+                }else if(btnNo.isChecked()){
+                    requestFunc(2);
+                }
             }
         });
 
@@ -85,6 +115,118 @@ public class ListRequestAdapter extends BaseAdapter {
             requestDate.setText(String.valueOf(RequestList.get(position).getRequestDate()));
         }
         return convertView;
+    }
+
+    //<work>, <workCharge> ADD, <request> Delete
+    private void requestFunc(final int select){
+
+        class RequestWorkAddAsync extends AsyncTask<String, Void, String> {
+            @Override
+            protected String doInBackground(String... params) {
+
+                InputStream is = null;
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                nameValuePairs.add(new BasicNameValuePair("workID", currentWorkID));
+                String result = null;
+
+                try {
+                    HttpClient httpClient = new DefaultHttpClient();
+                    HttpPost httpPost = new HttpPost("http://with7.cloudapp.net/addRequestWork.php");
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf-8"));
+
+                    HttpResponse response = httpClient.execute(httpPost);
+                    HttpEntity entity = response.getEntity();
+
+                    is = entity.getContent();
+
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
+                    StringBuilder sb = new StringBuilder();
+
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    result = sb.toString();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return result;
+            }
+            @Override
+            protected void onPostExecute(String result) {
+                String t_resiEmail = "hello@mail.com";
+                String s = result.trim();
+                Log.d("--------------SJ0:", s);
+                final String json = s.replaceAll("\"", "\\\"");
+                try{
+                    JSONArray jsonArray = new JSONArray(json);
+                    for(int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        try{
+                            URL url = new URL("http://with7.cloudapp.net/workChargeAdd.php?projectID=" + jsonObject.getString("projectID")
+                                    +"&workerEmail=" + t_resiEmail + "&workID=" + jsonObject.getString("workID") + "&workName=" + jsonObject.getString("workName")
+                                    + "&projectName=" + currentProjectName + "&endDay="+jsonObject.getString("endDay")+ "&priority=" + jsonObject.getInt("priority"));
+                            url.openStream();
+
+                        }catch (IOException e){
+                            e.printStackTrace();
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+        class RequestWorkDeleteAsync extends AsyncTask<String, Void, String> {
+            @Override
+            protected String doInBackground(String... params) {
+                String t_email = "hello@mail.com";
+
+                InputStream is = null;
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                nameValuePairs.add(new BasicNameValuePair("worker", t_email));
+                nameValuePairs.add(new BasicNameValuePair("workID", currentWorkID));
+                String result = null;
+
+                try {
+                    HttpClient httpClient = new DefaultHttpClient();
+                    HttpPost httpPost = new HttpPost("http://with7.cloudapp.net/deleteRequestWork.php");
+                    httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf-8"));
+
+                    HttpResponse response = httpClient.execute(httpPost);
+                    HttpEntity entity = response.getEntity();
+
+                    is = entity.getContent();
+
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
+                    StringBuilder sb = new StringBuilder();
+
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    result = sb.toString();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return result;
+            }
+            @Override
+            protected void onPostExecute(String result) {
+                String s = result.trim();
+                Log.d("--------------SJ17 :", s);
+                final String json = s.replaceAll("\"", "\\\"");
+                if(select == 1){
+                    RequestWorkAddAsync la = new RequestWorkAddAsync();
+                    la.execute();
+                }
+            }
+
+        }
+        RequestWorkDeleteAsync ld = new RequestWorkDeleteAsync();
+        ld.execute();
     }
 
     public void addRequest(RequestData data){

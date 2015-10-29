@@ -63,7 +63,6 @@ public class PP_Progress_Fragment extends Fragment {
         progressAll.setProgress(progressAllValue);
         updateProgressAll();
 
-        Log.d("--SJ ?", "1");
         return view;
     }
 
@@ -162,7 +161,6 @@ public class PP_Progress_Fragment extends Fragment {
             @Override
             protected void onPostExecute(String result) {
                 String s = result.trim();
-                Log.d("------------SJ12: ", s);
                 final String json = s.replaceAll("\"", "\\\"");
                 try{
                     JSONArray jsonArray = new JSONArray(json);

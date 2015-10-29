@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.seonjae.with.R;
+import com.example.seonjae.with.StartActivity;
 import com.example.seonjae.with.gcm.RegistrationIntentService;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -72,7 +73,7 @@ public class IssueAddActivity extends AppCompatActivity {
                 Date date = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");
                 t_issueDate = sdf.format(date);
-                t_writer = "test@mail.com";
+                t_writer = StartActivity.user_email;
                 addIssue();
             }
         });

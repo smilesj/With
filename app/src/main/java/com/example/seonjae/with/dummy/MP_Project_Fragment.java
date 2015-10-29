@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.seonjae.with.DataConn;
 import com.example.seonjae.with.ProjectAddActivity;
 import com.example.seonjae.with.R;
+import com.example.seonjae.with.StartActivity;
 import com.example.seonjae.with.data.ProjectData;
 import com.example.seonjae.with.project.ProjectHomeActivity;
 
@@ -106,7 +107,7 @@ public class MP_Project_Fragment extends Fragment {
         class GetProjectListAsync extends AsyncTask<String, Void, String> {
             @Override
             protected String doInBackground(String... params) {
-                String t_email = "test@mail.com";
+                String t_email = StartActivity.user_email;
 
                 InputStream is = null;
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
@@ -168,7 +169,7 @@ public class MP_Project_Fragment extends Fragment {
         class GetTeamWorkerListAsync extends AsyncTask<String, Void, String> {
             @Override
             protected String doInBackground(String... params) {
-                String t_email = "test@mail.com";
+                String t_email = StartActivity.user_email;
 
                 InputStream is = null;
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();

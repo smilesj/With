@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.seonjae.with.R;
+import com.example.seonjae.with.StartActivity;
 import com.example.seonjae.with.data.RequestData;
 
 import org.apache.http.HttpEntity;
@@ -59,7 +60,7 @@ public class MP_Request_Fragment extends Fragment {
         class GetRequestListAsync extends AsyncTask<String, Void, String> {
             @Override
             protected String doInBackground(String... params) {
-                String t_email = "test@mail.com";
+                String t_email = StartActivity.user_email;
 
                 InputStream is = null;
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
