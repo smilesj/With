@@ -68,6 +68,14 @@
                 android:textStyle="bold"
                 android:text="찾기"/>
         </LinearLayout>
+        <TextView
+            android:id="@+id/resultText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:text="팀원의 이메일을 검색해주세요."/>
         <ListView
             android:id="@+id/searchList"
             android:layout_width="match_parent"

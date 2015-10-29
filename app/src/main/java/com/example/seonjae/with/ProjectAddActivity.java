@@ -12,6 +12,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.seonjae.with.data.NoticeData;
@@ -46,10 +47,13 @@ public class ProjectAddActivity extends AppCompatActivity {
 
     private EditText projectName;
     private EditText projectDescribe;
+    private TextView resultText;
 
     private EditText searchEmail;
     private FButton btnSearch;
     private String t_email;
+    private String t_projectName;
+    private String t_projectID;
 
     private ListView searchListView = null;
     private ArrayList<String> searchDataList;
@@ -72,6 +76,7 @@ public class ProjectAddActivity extends AppCompatActivity {
         projectName = (EditText)findViewById(R.id.projectName);
         projectDescribe = (EditText)findViewById(R.id.projectDescribe);
         searchEmail = (EditText)findViewById(R.id.workerSearch);
+        resultText= (TextView)findViewById(R.id.resultText);
 
         btnSearch = (FButton)findViewById(R.id.btnSearch);
         btnSearch.setOnClickListener(new View.OnClickListener() {
@@ -87,8 +92,7 @@ public class ProjectAddActivity extends AppCompatActivity {
         btnCProject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String t_projectID;
-                String t_projectName = projectName.getText().toString();
+                t_projectName = projectName.getText().toString();
                 String t_projectDescribe = projectDescribe.getText().toString();
                 int t_progress = 0;
                 Date date = new Date();
@@ -109,7 +113,6 @@ public class ProjectAddActivity extends AppCompatActivity {
                             + "&progress=" + t_progress + "&createDate=" + t_createDate + "&readerEmail=" +t_readerEmail +"&color="+t_color);
                     url.openStream();
 
-                    Toast.makeText(ProjectAddActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
                 }catch(IOException e){
                     e.printStackTrace();
                 }
@@ -118,15 +121,30 @@ public class ProjectAddActivity extends AppCompatActivity {
                     URL url2 = new URL("http://with7.cloudapp.net/participationAdd.php?projectID=" + t_projectID
                             + "&email="+t_readerEmail + "&projectName=" + t_projectName + "&pRate=0&pPriority=0");
                     url2.openStream();
-                    Toast.makeText(ProjectAddActivity.this, "추가되었습니다2.", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(ProjectAddActivity.this, MainActivity.class);
-                    startActivity(intent);
                 }catch (IOException e){
                     e.printStackTrace();
                 }
+
+                for(String str : searchDataList){
+                    partWorker(str);
+                }
+
+                Toast.makeText(ProjectAddActivity.this, "프로젝트가 생성되었습니다.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ProjectAddActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
+    }
+
+    private void partWorker(String _email){
+        try{
+            URL url2 = new URL("http://with7.cloudapp.net/participationAdd.php?projectID=" + t_projectID
+                    + "&email="+_email + "&projectName=" + t_projectName + "&pRate=0&pPriority=0");
+            url2.openStream();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     private void searchEmailData(){
@@ -167,7 +185,13 @@ public class ProjectAddActivity extends AppCompatActivity {
                 String s = result.trim();
                 Log.d("--SJ0 :", s);
                 if(s.equals("1")){
+                    resultText.setText("팀원이 추가되었습니다.");
+                    searchEmail.setText("");
                     searchDataList.add(t_email);
+                }
+                else if(s.equals("0")){
+                    searchEmail.setText("");
+                    resultText.setText("해당 팀원을 찾을 수 없습니다.");
                 }
             }
 
