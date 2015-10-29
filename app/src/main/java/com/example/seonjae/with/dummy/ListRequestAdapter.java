@@ -13,6 +13,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.seonjae.with.R;
+import com.example.seonjae.with.StartActivity;
 import com.example.seonjae.with.data.RequestData;
 
 import org.apache.http.HttpEntity;
@@ -154,7 +155,7 @@ public class ListRequestAdapter extends BaseAdapter {
             }
             @Override
             protected void onPostExecute(String result) {
-                String t_resiEmail = "hello@mail.com";
+                String t_resiEmail = StartActivity.user_email;
                 String s = result.trim();
                 Log.d("--------------SJ0:", s);
                 final String json = s.replaceAll("\"", "\\\"");
