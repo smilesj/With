@@ -84,6 +84,7 @@ public class MP_TODO_Fragment extends Fragment {
                 Intent intent = new Intent(getActivity(), WorkInfoActivity.class);
                 intent.putExtra("workID", tListAdapter.getItem(position).getWorkID());
                 intent.putExtra("projectName", tListAdapter.getItem(position).getProjectName());
+                intent.putExtra("complete", tListAdapter.getItem(position).getComplete());
                 startActivity(intent);
             }
         });

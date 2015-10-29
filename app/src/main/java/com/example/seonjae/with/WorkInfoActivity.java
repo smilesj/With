@@ -3,6 +3,7 @@ package com.example.seonjae.with;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -80,6 +81,8 @@ public class WorkInfoActivity extends AppCompatActivity {
     private int mMonth;
     private int mDay;
 
+    private int complete;
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +92,7 @@ public class WorkInfoActivity extends AppCompatActivity {
         Intent intent = getIntent();
         workID = intent.getExtras().getString("workID");
         projectName = intent.getExtras().getString("projectName");
+        complete = intent.getExtras().getInt("complete");
 
         layoutWorkInfo = (LinearLayout)findViewById(R.id.layoutWorkInfo);
         layoutRewriteWorkInfo = (LinearLayout)findViewById(R.id.layoutRewriteWorkInfo);
@@ -100,6 +104,12 @@ public class WorkInfoActivity extends AppCompatActivity {
         valueStartDay = (TextView)findViewById(R.id.valueStartDay);
         valueEndDay = (TextView)findViewById(R.id.valueEndDay);
         btnEndWork = (FButton)findViewById(R.id.btnEndWork);
+        if(complete == 1){
+            btnEndWork.setButtonColor(Color.rgb(207,207,207));
+            btnEndWork.setShadowColor(Color.rgb(153,153,153));
+            btnEndWork.setEnabled(false);
+        }
+
         btnEndWork.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +117,8 @@ public class WorkInfoActivity extends AppCompatActivity {
                     URL url2 = new URL("http://with7.cloudapp.net/updateWorkComplete.php?email=" + StartActivity.user_email + "&workID=" + workID);
                     url2.openStream();
                     Toast.makeText(getBaseContext(), "업무를 완료하였습니다.", Toast.LENGTH_LONG).show();
-                    finish();
+                    Intent intent = new Intent(WorkInfoActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }catch (IOException e){
                     e.printStackTrace();
                 }

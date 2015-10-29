@@ -65,12 +65,17 @@ public class ListTodoAdapter extends BaseAdapter {
         tData = getItem(position);
 
         if(tData != null){
-            if( (position%2) == 0)
-                projectColor.setBackgroundColor(Color.rgb(232, 217, 255));
-                //projectColor.setBackgroundColor(Color.rgb(209, 178, 255));
-            else
-                projectColor.setBackgroundColor(Color.rgb(255, 217, 236));
+            if(tData.getComplete() == 1){
+                projectColor.setBackgroundColor(Color.rgb(207, 207, 207));
+            }
+            else {
+                if ((position % 2) == 0)
+                    projectColor.setBackgroundColor(Color.rgb(232, 217, 255));
+                    //projectColor.setBackgroundColor(Color.rgb(209, 178, 255));
+                else
+                    projectColor.setBackgroundColor(Color.rgb(255, 217, 236));
                 //projectColor.setBackgroundColor(Color.rgb(255, 178, 217));
+            }
             todoName.setText(TodoList.get(position).getTodoName());
             projectName.setText(TodoList.get(position).getProjectName());
             endday.setText(TodoList.get(position).getEndDay().toString());
