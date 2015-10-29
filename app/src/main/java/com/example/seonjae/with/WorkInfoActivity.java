@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.seonjae.with.data.TodoData;
 
+import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -64,7 +65,7 @@ public class WorkInfoActivity extends AppCompatActivity {
     private TextView reProjectName;
     private EditText reWorkName;
     private EditText reWorkDes;
-    private SeekBar reWorkPriority;
+    private DiscreteSeekBar reWorkPriority;
     private TextView reStartDay;
     private TextView reEndDay;
     private Button btnEndDay;
@@ -98,7 +99,7 @@ public class WorkInfoActivity extends AppCompatActivity {
         reProjectName = (TextView)findViewById(R.id.reProjectName);
         reWorkName = (EditText)findViewById(R.id.reWorkName);
         reWorkDes = (EditText)findViewById(R.id.reWorkDes);
-        reWorkPriority = (SeekBar)findViewById(R.id.rePriority);
+        reWorkPriority = (DiscreteSeekBar)findViewById(R.id.rePriority);
         reStartDay = (TextView)findViewById(R.id.reStartDay);
         reEndDay = (TextView)findViewById(R.id.reEndDay);
         btnEndDay = (Button)findViewById(R.id.btnEndDay);
