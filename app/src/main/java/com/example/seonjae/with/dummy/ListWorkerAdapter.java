@@ -68,6 +68,9 @@ public class ListWorkerAdapter extends BaseAdapter {
         workerData = getItem(position);
 
         if(workerData != null){
+            if((position%2) == 0){
+                progressWorker.setProgressColor(Color.rgb(145,142,219));
+            }
             progressWorker.setProgress((float) WorkerList.get(position).getWorkerProgress());
             worker.setText(workerData.getWorkerEmail());
             progressNum.setText(String.valueOf((int) progressWorker.getProgress()) + "%");

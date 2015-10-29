@@ -4,12 +4,15 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     android:layout_marginTop="10dp">
 
     <TextView
         android:id="@+id/worker"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="14dp" />
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -20,6 +23,7 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="0.9"
+            android:layout_marginTop="5dp"
             app:rcBackgroundPadding="5dp"
             app:rcBackgroundColor="#D9E5FF"
             app:rcProgressColor="#B5B2FF"
