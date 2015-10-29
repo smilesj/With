@@ -358,13 +358,14 @@ public class TodoAddActivity extends AppCompatActivity {
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
                 nameValuePairs.add(new BasicNameValuePair("regID", token));
                 nameValuePairs.add(new BasicNameValuePair("title", ProjectHomeActivity.itemProjectName));
-                nameValuePairs.add(new BasicNameValuePair("type", "RequestWork"));
+                nameValuePairs.add(new BasicNameValuePair("type", "Request"));
                 nameValuePairs.add(new BasicNameValuePair("message", msg));
                 Iterator<String> iterator = gcmWorkerList.keySet().iterator();
                 while(iterator.hasNext()){
                     String key = iterator.next();
                     String value = gcmWorkerList.get(key);
-                    nameValuePairs.add(new BasicNameValuePair("devices[]", value));
+                    if(!value.equals(StartActivity.user_email))
+                        nameValuePairs.add(new BasicNameValuePair("devices[]", value));
                 }
 
                 String result = null;

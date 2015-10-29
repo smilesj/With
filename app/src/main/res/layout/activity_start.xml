@@ -37,21 +37,22 @@
             fbutton:shadowEnabled="true"
             fbutton:shadowHeight="5dp"
             fbutton:cornerRadius="5dp"
-            android:text="Login"/>
+            android:textStyle="bold"
+            android:text="로그인"/>
         <TextView
             android:id="@+id/loginSignup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sign up Now!"
+            android:text="가입하기"
             android:textSize="16dp"
             android:gravity="center"
             android:layout_marginTop="20dp"/>
 
-        <Button
-            android:id="@+id/GcmButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="GCM"/>
+        <!--<Button-->
+            <!--android:id="@+id/GcmButton"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="GCM"/>-->
     </LinearLayout>
 
 </RelativeLayout>

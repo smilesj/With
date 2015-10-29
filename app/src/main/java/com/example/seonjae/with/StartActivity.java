@@ -85,14 +85,14 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
-        Button btnGcm = (Button)findViewById(R.id.GcmButton);
-        btnGcm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(StartActivity.this, GcmActivity.class);
-                startActivity(intent);
-            }
-        });
+//        Button btnGcm = (Button)findViewById(R.id.GcmButton);
+//        btnGcm.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(StartActivity.this, GcmActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     private void loginWith(final String email, String password){

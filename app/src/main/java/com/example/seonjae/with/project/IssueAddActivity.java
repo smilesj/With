@@ -131,13 +131,13 @@ public class IssueAddActivity extends AppCompatActivity {
                 String s = result.trim();
                 Log.d("------------SJ13: ", s);
                 if(s.equalsIgnoreCase("success")){
-                    Toast.makeText(getApplicationContext(), "추가되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "이슈가 추가되었습니다.", Toast.LENGTH_SHORT).show();
                     getInstanceIdToken();
                     sendGCMIssue();
                     finish();
                 }
                 else if(s.equalsIgnoreCase("failure")){
-                    Toast.makeText(getApplicationContext(), "추가되지않았습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "이슈가 추가되지않았습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -195,7 +195,8 @@ public class IssueAddActivity extends AppCompatActivity {
                 while(iterator.hasNext()){
                     String key = iterator.next();
                     String value = ProjectHomeActivity.itemProjectWorker.get(key);
-                    nameValuePairs.add(new BasicNameValuePair("devices[]", value));
+                    if(!value.equals(StartActivity.user_email))
+                        nameValuePairs.add(new BasicNameValuePair("devices[]", value));
                 }
 
                 String result = null;
