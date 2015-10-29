@@ -38,11 +38,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import info.hoang8f.widget.FButton;
 
 public class WorkInfoActivity extends AppCompatActivity {
 
@@ -61,6 +64,7 @@ public class WorkInfoActivity extends AppCompatActivity {
     private TextView valueWorkPriority;
     private TextView valueStartDay;
     private TextView valueEndDay;
+    private FButton btnEndWork;
 
     private TextView reProjectName;
     private EditText reWorkName;
@@ -95,6 +99,20 @@ public class WorkInfoActivity extends AppCompatActivity {
         valueWorkPriority = (TextView)findViewById(R.id.valueWorkPriority);
         valueStartDay = (TextView)findViewById(R.id.valueStartDay);
         valueEndDay = (TextView)findViewById(R.id.valueEndDay);
+        btnEndWork = (FButton)findViewById(R.id.btnEndWork);
+        btnEndWork.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    URL url2 = new URL("http://with7.cloudapp.net/updateWorkComplete.php?email=" + StartActivity.user_email + "&workID=" + workID);
+                    url2.openStream();
+                    Toast.makeText(getBaseContext(), "업무를 완료하였습니다.", Toast.LENGTH_LONG).show();
+                    finish();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+        });
 
         reProjectName = (TextView)findViewById(R.id.reProjectName);
         reWorkName = (EditText)findViewById(R.id.reWorkName);
@@ -175,7 +193,6 @@ public class WorkInfoActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(String result) {
                 String s = result.trim();
-                Log.d("--------------SJ9 :", s);
                 final String json = s.replaceAll("\"", "\\\"");
                 try{
                     JSONArray jsonArray = new JSONArray(json);
@@ -242,9 +259,8 @@ public class WorkInfoActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(String result) {
                 String s = result.trim();
-                Log.d("--------------SJ9 :", s);
                 if(s.equalsIgnoreCase("success")){
-                    Toast.makeText(WorkInfoActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WorkInfoActivity.this, "업무가 수정되었습니다.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(WorkInfoActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
@@ -292,9 +308,8 @@ public class WorkInfoActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(String result) {
                 String s = result.trim();
-                Log.d("--------------SJ10 :", s);
                 if(s.equalsIgnoreCase("success")){
-                    Toast.makeText(WorkInfoActivity.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WorkInfoActivity.this, "업무가 삭제되었습니다.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(WorkInfoActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
